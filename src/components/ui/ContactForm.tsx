@@ -42,8 +42,8 @@ export const ContactForm = () => {
     }
   };
 
-  const inputClasses = "w-full bg-ai-forest border-b border-ai-ivory/20 px-4 py-3 text-ai-ivory text-sm placeholder:text-ai-ivory/30 focus:outline-none focus:border-ai-gold transition-colors font-light rounded-none";
-  const labelClasses = "block text-xs font-semibold tracking-widest uppercase text-ai-ivory/50 mb-2";
+  const inputClasses = "w-full bg-white border border-ai-graphite/10 rounded-lg px-4 py-3.5 text-ai-graphite text-base placeholder:text-ai-graphite/30 focus:outline-none focus:border-ai-teal focus:ring-1 focus:ring-ai-teal transition-all font-medium shadow-sm hover:border-ai-graphite/20";
+  const labelClasses = "block text-sm font-bold text-ai-graphite/80 mb-2";
 
   if (status === 'success') {
     return (
@@ -51,19 +51,19 @@ export const ContactForm = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col items-center justify-center text-center p-12 bg-ai-forest border border-ai-ivory/10"
+        className="flex flex-col items-center justify-center text-center p-12 bg-white rounded-xl border border-ai-graphite/10 shadow-modern-sm"
       >
-        <CheckCircle className="w-12 h-12 text-ai-gold mb-6" strokeWidth={1.5} />
-        <h3 className="text-2xl font-display font-medium mb-2 text-ai-ivory">Message received.</h3>
-        <p className="text-ai-ivory/60 text-sm font-light">We'll get back to you shortly to start the conversation.</p>
+        <CheckCircle className="w-12 h-12 text-ai-teal mb-6" strokeWidth={2} />
+        <h3 className="text-2xl font-display font-bold mb-2 text-ai-graphite">Message received.</h3>
+        <p className="text-ai-graphite/60 text-base font-medium">We'll get back to you shortly to start the conversation.</p>
       </motion.div>
     );
   }
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate={false}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate={false}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
             <label htmlFor="name" className={labelClasses}>Name</label>
             <input 
@@ -76,7 +76,7 @@ export const ContactForm = () => {
             />
           </div>
           <div>
-            <label htmlFor="business" className={labelClasses}>Business / Organization</label>
+            <label htmlFor="business" className={labelClasses}>Business</label>
             <input 
               id="business"
               type="text" 
@@ -87,9 +87,9 @@ export const ContactForm = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           <div>
-            <label htmlFor="phone" className={labelClasses}>Phone / WhatsApp</label>
+            <label htmlFor="phone" className={labelClasses}>WhatsApp / Phone</label>
             <input 
               id="phone"
               type="tel" 
@@ -137,7 +137,7 @@ export const ContactForm = () => {
           <textarea 
             id="message"
             required
-            placeholder="Tell us a little about your project..." 
+            placeholder="Tell us what you have in mind..." 
             rows={4}
             className={`${inputClasses} resize-none`}
             value={formData.message}
@@ -148,22 +148,16 @@ export const ContactForm = () => {
         <button 
           type="submit" 
           disabled={status === 'submitting'}
-          className="bg-ai-ivory text-ai-forest font-medium px-10 py-4 hover:bg-ai-gold hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto self-start mt-4 flex items-center gap-2 group"
+          className="bg-ai-graphite text-white font-bold px-8 py-4 rounded-lg hover:bg-ai-teal transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed w-full mt-2 flex items-center justify-center gap-2 group shadow-modern-sm"
         >
-          {status === 'submitting' ? 'Sending...' : 'Send Enquiry'}
+          {status === 'submitting' ? 'Sending...' : 'Start a Conversation'}
           {!status && <span className="group-hover:translate-x-1 transition-transform">→</span>}
         </button>
 
         {status === 'error' && (
-          <p className="text-red-400 text-sm font-light">Something went wrong. Please try again.</p>
+          <p className="text-red-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>
         )}
       </form>
-
-      <div className="mt-12 pt-8 border-t border-ai-ivory/10">
-        <p className="text-sm text-ai-ivory/50 font-light">
-          Prefer WhatsApp? <a href="#" className="text-ai-gold font-medium hover:text-ai-ivory transition-colors ml-1">Chat with AI Varsh →</a>
-        </p>
-      </div>
     </div>
   );
 };

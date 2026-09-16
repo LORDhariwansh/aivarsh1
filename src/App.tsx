@@ -5,6 +5,7 @@ import { TrustSection } from './components/sections/TrustSection';
 import { ServicesSection } from './components/sections/ServicesSection';
 import { InteractiveNeedsSection } from './components/sections/InteractiveNeedsSection';
 import { StorySection } from './components/sections/StorySection';
+import { WebAppSection } from './components/sections/WebAppSection';
 import { WorkSection } from './components/sections/WorkSection';
 import { IndustriesSection } from './components/sections/IndustriesSection';
 import { WhySection } from './components/sections/WhySection';
@@ -18,7 +19,7 @@ import { ErrorBoundary } from './ErrorBoundary';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="relative w-full text-ai-forest bg-ai-ivory selection:bg-ai-gold selection:text-ai-ivory">
+      <div className="relative w-full text-ai-graphite bg-ai-cloud selection:bg-ai-teal selection:text-white">
         <Navbar />
 
         <main className="relative w-full z-0 flex flex-col">
@@ -27,6 +28,7 @@ function App() {
           <ServicesSection />
           <InteractiveNeedsSection />
           <StorySection />
+          <WebAppSection />
           <WorkSection />
           <IndustriesSection />
           <WhySection />
