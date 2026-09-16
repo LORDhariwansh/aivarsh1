@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 import { db } from '../../lib/firebase';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { motion } from 'framer-motion';
-import { CheckCircle, Send } from 'lucide-react';
+import { CheckCircle } from 'lucide-react';
 
 export const ContactForm = () => {
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
   const [formData, setFormData] = useState({
-    fullName: '',
-    companyName: '',
-    email: '',
+    name: '',
+    business: '',
     phone: '',
-    service: 'Website Development',
+    email: '',
+    service: 'AI & Automation',
     message: ''
   });
 
@@ -22,10 +22,10 @@ export const ContactForm = () => {
     try {
       if (db) {
         await addDoc(collection(db, 'leads'), {
-          full_name: formData.fullName,
-          company_name: formData.companyName,
-          email: formData.email,
+          name: formData.name,
+          business: formData.business,
           phone: formData.phone,
+          email: formData.email,
           service: formData.service,
           message: formData.message,
           status: 'new',
@@ -33,131 +33,136 @@ export const ContactForm = () => {
         });
       }
 
-      // Brief delay for smooth UX transition
       setTimeout(() => {
         setStatus('success');
-      }, 1000);
-
+      }, 800);
     } catch (err) {
       console.error('Firebase Error:', err);
       setStatus('error');
     }
   };
 
-  const inputClasses = "w-full bg-white/[0.04] border border-white/10 rounded-xl px-4 py-3.5 text-ai-base text-sm placeholder:text-white/25 focus:outline-none focus:border-ai-cyan/50 focus:bg-white/[0.06] transition-all duration-300";
+  const inputClasses = "w-full bg-ai-card border border-ai-border rounded-lg px-4 py-3.5 text-ai-text text-sm placeholder:text-ai-muted focus:outline-none focus:ring-2 focus:ring-ai-accent focus:border-transparent transition-shadow";
+  const labelClasses = "block text-sm font-medium text-ai-text mb-1.5";
 
   if (status === 'success') {
     return (
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.5, ease: 'easeOut' }}
-        className="flex flex-col items-center justify-center text-center p-12 bg-white/[0.03] rounded-2xl border border-white/10 backdrop-blur-sm"
+        transition={{ duration: 0.4 }}
+        className="flex flex-col items-center justify-center text-center p-12 bg-ai-card rounded-xl border border-ai-border shadow-soft"
       >
-        <div className="w-16 h-16 rounded-full bg-ai-cyan/10 flex items-center justify-center mb-6">
-          <CheckCircle className="w-8 h-8 text-ai-cyan" />
-        </div>
-        <h3 className="text-2xl font-display font-bold mb-3">YOU'RE CONNECTED.</h3>
-        <p className="text-white/50 text-sm">WE'LL TAKE IT FROM HERE. ✦</p>
+        <CheckCircle className="w-12 h-12 text-green-600 mb-6" strokeWidth={1.5} />
+        <h3 className="text-xl font-display font-bold mb-2">Message received.</h3>
+        <p className="text-ai-muted text-sm">We'll get back to you shortly to start the conversation.</p>
       </motion.div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-5 w-full max-w-xl" noValidate={false}>
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="fullName" className="sr-only">Full Name</label>
-          <input 
-            id="fullName"
-            required
-            type="text" 
-            placeholder="Full Name" 
-            className={inputClasses}
-            value={formData.fullName}
-            onChange={e => setFormData({...formData, fullName: e.target.value})}
-          />
+    <div className="w-full">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate={false}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label htmlFor="name" className={labelClasses}>Name</label>
+            <input 
+              id="name"
+              required
+              type="text" 
+              className={inputClasses}
+              value={formData.name}
+              onChange={e => setFormData({...formData, name: e.target.value})}
+            />
+          </div>
+          <div>
+            <label htmlFor="business" className={labelClasses}>Business / Organization</label>
+            <input 
+              id="business"
+              type="text" 
+              className={inputClasses}
+              value={formData.business}
+              onChange={e => setFormData({...formData, business: e.target.value})}
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="companyName" className="sr-only">Company Name</label>
-          <input 
-            id="companyName"
-            type="text" 
-            placeholder="Company Name" 
-            className={inputClasses}
-            value={formData.companyName}
-            onChange={e => setFormData({...formData, companyName: e.target.value})}
-          />
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <label htmlFor="phone" className={labelClasses}>Phone / WhatsApp</label>
+            <input 
+              id="phone"
+              type="tel" 
+              required
+              className={inputClasses}
+              value={formData.phone}
+              onChange={e => setFormData({...formData, phone: e.target.value})}
+            />
+          </div>
+          <div>
+            <label htmlFor="email" className={labelClasses}>Email</label>
+            <input 
+              id="email"
+              required
+              type="email" 
+              className={inputClasses}
+              value={formData.email}
+              onChange={e => setFormData({...formData, email: e.target.value})}
+            />
+          </div>
         </div>
-      </div>
-      
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label htmlFor="email" className="sr-only">Email Address</label>
-          <input 
-            id="email"
-            required
-            type="email" 
-            placeholder="Email Address" 
-            className={inputClasses}
-            value={formData.email}
-            onChange={e => setFormData({...formData, email: e.target.value})}
-          />
-        </div>
-        <div>
-          <label htmlFor="phone" className="sr-only">Phone Number</label>
-          <input 
-            id="phone"
-            type="tel" 
-            placeholder="Phone Number" 
-            className={inputClasses}
-            value={formData.phone}
-            onChange={e => setFormData({...formData, phone: e.target.value})}
-          />
-        </div>
-      </div>
 
-      <div>
-        <label htmlFor="service" className="sr-only">Service</label>
-        <select 
-          id="service"
-          className={`${inputClasses} appearance-none cursor-pointer`}
-          value={formData.service}
-          onChange={e => setFormData({...formData, service: e.target.value})}
+        <div>
+          <label htmlFor="service" className={labelClasses}>What do you need?</label>
+          <select 
+            id="service"
+            className={`${inputClasses} appearance-none cursor-pointer`}
+            value={formData.service}
+            onChange={e => setFormData({...formData, service: e.target.value})}
+          >
+            <option value="AI & Automation">AI & Automation</option>
+            <option value="Website">Website</option>
+            <option value="App">App</option>
+            <option value="SEO">SEO</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Video Editing">Video Editing</option>
+            <option value="Branding">Branding</option>
+            <option value="Custom Solution">Custom Solution</option>
+            <option value="Not Sure Yet">Not Sure Yet</option>
+          </select>
+        </div>
+
+        <div>
+          <label htmlFor="message" className={labelClasses}>Message</label>
+          <textarea 
+            id="message"
+            required
+            placeholder="Tell us a little about your project..." 
+            rows={4}
+            className={`${inputClasses} resize-none`}
+            value={formData.message}
+            onChange={e => setFormData({...formData, message: e.target.value})}
+          />
+        </div>
+
+        <button 
+          type="submit" 
+          disabled={status === 'submitting'}
+          className="bg-ai-text text-white font-medium px-8 py-4 rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto self-start mt-2"
         >
-          <option value="Website Development" className="bg-ai-dark">Website Development</option>
-          <option value="AI Automation" className="bg-ai-dark">AI Automation</option>
-          <option value="Digital Marketing" className="bg-ai-dark">Digital Marketing</option>
-          <option value="AI Solution" className="bg-ai-dark">Custom AI Solution</option>
-          <option value="Other" className="bg-ai-dark">Other</option>
-        </select>
+          {status === 'submitting' ? 'Sending...' : 'Send Enquiry →'}
+        </button>
+
+        {status === 'error' && (
+          <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
+        )}
+      </form>
+
+      <div className="mt-8 pt-6 border-t border-ai-border">
+        <p className="text-sm text-ai-muted">
+          Prefer WhatsApp? <a href="#" className="text-ai-text font-medium hover:underline ml-1">Chat with AI Varsh →</a>
+        </p>
       </div>
-
-      <div>
-        <label htmlFor="message" className="sr-only">Message</label>
-        <textarea 
-          id="message"
-          required
-          placeholder="Tell us what you're trying to build, automate or grow..." 
-          rows={4}
-          className={`${inputClasses} resize-none`}
-          value={formData.message}
-          onChange={e => setFormData({...formData, message: e.target.value})}
-        />
-      </div>
-
-      <button 
-        type="submit" 
-        disabled={status === 'submitting'}
-        className="group flex items-center justify-center gap-3 bg-ai-base text-ai-dark font-bold text-sm py-4 rounded-xl hover:bg-white hover:shadow-lg hover:shadow-ai-cyan/10 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed mt-2"
-      >
-        <span>{status === 'submitting' ? 'CONNECTING...' : 'START A CONVERSATION'}</span>
-        <Send size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
-      </button>
-
-      {status === 'error' && (
-        <p className="text-ai-coral text-sm text-center">Something went wrong. Please try again.</p>
-      )}
-    </form>
+    </div>
   );
 };

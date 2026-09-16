@@ -1,69 +1,98 @@
-export const SERVICES = {
-  build: {
-    title: "BUILD",
-    subtitle: "Web Development",
-    description: "Websites designed to make your business easier to understand, trust and remember.",
-    color: "coral",
-    items: [
-      "Business Websites",
-      "Landing Pages",
-      "React Development",
-      "Web Applications",
-      "E-commerce",
-      "UI/UX",
-      "Website Redesign",
-    ],
+export const SERVICES = [
+  {
+    id: "ai-automation",
+    title: "AI & AUTOMATION",
+    subtitle: "Make repetitive work disappear.",
+    description: "AI assistants, WhatsApp automation, lead management, workflow automation, integrations and intelligent business processes.",
+    cta: "Explore AI & Automation →"
   },
-  automate: {
-    title: "AUTOMATE",
-    subtitle: "AI & Automation",
-    description: "We connect your tools, workflows and everyday processes with intelligent automation.",
-    color: "violet",
-    items: [
-      "AI Agents",
-      "AI Chatbots",
-      "Workflow Automation",
-      "Lead Automation",
-      "Email Automation",
-      "CRM Automation",
-      "Document Processing",
-      "API Integrations",
-      "Custom AI Systems",
-    ],
+  {
+    id: "web-app",
+    title: "WEB & APP DEVELOPMENT",
+    subtitle: "Build something people can use.",
+    description: "Websites, web applications, dashboards, Android applications, Flutter applications and custom digital products.",
+    cta: "Explore Development →"
   },
-  grow: {
-    title: "GROW",
-    subtitle: "Digital Marketing",
-    description: "Digital strategies that turn attention into engagement, leads and long-term growth.",
-    color: "green",
-    items: [
-      "SEO",
-      "Social Media",
-      "Content",
-      "Performance Marketing",
-      "Google Ads",
-      "Meta Ads",
-      "Branding",
-      "Lead Generation",
-      "Analytics",
-    ],
+  {
+    id: "seo-growth",
+    title: "SEO & DIGITAL GROWTH",
+    subtitle: "Be easier to find.",
+    description: "Local SEO, technical SEO, content strategy, Google Business optimization and digital growth solutions.",
+    cta: "Explore Digital Growth →"
   },
-};
+  {
+    id: "graphic-design",
+    title: "GRAPHIC DESIGN",
+    subtitle: "Make your brand recognizable.",
+    description: "Social media creatives, marketing designs, presentations, brochures, advertisements and visual communication.",
+    cta: "Explore Design →"
+  },
+  {
+    id: "video-content",
+    title: "VIDEO & CONTENT",
+    subtitle: "Turn attention into connection.",
+    description: "Reels, promotional videos, corporate videos, product videos, motion graphics and social content.",
+    cta: "Explore Video →"
+  },
+  {
+    id: "branding",
+    title: "BRANDING",
+    subtitle: "Give your business a clear identity.",
+    description: "Logo design, visual identity, brand systems, campaign design and creative direction.",
+    cta: "Explore Branding →"
+  }
+];
 
-export const CAPABILITIES = [
+export const INDUSTRIES = [
   {
-    title: "AI CUSTOMER SUPPORT",
-    components: "WEBSITE + AI CHATBOT + AUTOMATION",
-    description: "Intelligent chatbots that handle customer queries, qualify leads, and escalate when needed — running 24/7.",
+    title: "REAL ESTATE",
+    items: ["Lead enquiries", "Property websites", "WhatsApp automation", "Follow-ups", "Digital marketing"]
   },
   {
-    title: "SMART LEAD SYSTEM",
-    components: "LANDING PAGE + AI QUALIFICATION + CRM",
-    description: "Automated lead capture and qualification that connects your website to your CRM and nurtures prospects.",
+    title: "MANUFACTURING",
+    items: ["Business systems", "Dashboards", "Automation", "AI monitoring", "Digital presence"]
   },
   {
-    title: "GROWTH ENGINE",
-    components: "WEBSITE + CONTENT + SEO + ANALYTICS",
-    description: "A connected digital presence that attracts, engages, and converts — with data-driven optimization.",
+    title: "LOCAL BUSINESSES",
+    items: ["Websites", "SEO", "Social media", "Design", "Video", "Customer automation"]
   },
+  {
+    title: "HEALTHCARE",
+    items: ["Patient booking", "Clinic websites", "Local SEO", "WhatsApp reminders", "Brand identity"]
+  },
+  {
+    title: "EDUCATION",
+    items: ["Student portals", "Lead generation", "Institution branding", "Video tours", "Social content"]
+  },
+  {
+    title: "RETAIL & E-COMMERCE",
+    items: ["Online stores", "Inventory sync", "Social media marketing", "Product videos", "Customer support AI"]
+  },
+  {
+    title: "HOSPITALITY",
+    items: ["Restaurant websites", "Menu design", "Booking automation", "Social media creatives", "Local SEO"]
+  },
+  {
+    title: "PROFESSIONAL SERVICES",
+    items: ["Corporate websites", "Client portals", "Lead qualification", "LinkedIn content", "Branding"]
+  },
+  {
+    title: "MINING & INDUSTRIAL",
+    items: ["Corporate profiles", "Safety videos", "Process dashboards", "B2B presentations", "Web presence"]
+  },
+  {
+    title: "STARTUPS",
+    items: ["MVP development", "Pitch deck design", "Brand identity", "Launch videos", "Growth strategy"]
+  }
+];
+
+export const PORTFOLIO = [
+  { id: 1, name: "SmartFlow Automations", category: "Automation", desc: "WhatsApp lead qualification bot", link: "#" },
+  { id: 2, name: "BuildCorp Dynamics", category: "Web", desc: "Corporate website for construction firm", link: "#" },
+  { id: 3, name: "AI Varsh Prototype", category: "AI", desc: "Internal document summarization tool", link: "#" },
+  { id: 4, name: "UrbanSpaces Realty", category: "Design", desc: "Social media campaign creatives", link: "#" },
+  { id: 5, name: "MedAssist Connect", category: "Apps", desc: "Patient appointment scheduling app", link: "#" },
+  { id: 6, name: "LocalEats Growth", category: "SEO", desc: "Local SEO optimization for restaurant chain", link: "#" },
+  { id: 7, name: "TechNova Brand", category: "Branding", desc: "Complete visual identity and guidelines", link: "#" },
+  { id: 8, name: "Product Launch 2026", category: "Video", desc: "Motion graphics promotional video", link: "#" }
 ];

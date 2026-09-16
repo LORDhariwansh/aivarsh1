@@ -1,8 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { SITE_CONTENT } from '../../data/content';
-import { NeuralBackground } from '../ui/NeuralBackground';
-import { ChevronDown } from 'lucide-react';
 
 export const Hero = () => {
   const scrollTo = (href: string) => (e: React.MouseEvent) => {
@@ -12,111 +10,100 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen w-full flex items-center overflow-hidden">
-      {/* Neural Network Background */}
-      <div className="absolute inset-0 z-0">
-        <NeuralBackground />
-        {/* Gradient overlays for readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-ai-dark/60 via-ai-dark/40 to-ai-dark" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ai-dark/80 via-transparent to-transparent" />
-      </div>
-
-      {/* Top accent line */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-ai-violet/50 to-transparent" />
-
-      {/* Content */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 pt-24 pb-16">
-        <div className="max-w-4xl">
-          {/* Badges */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="flex flex-wrap gap-3 mb-8"
-          >
-            {SITE_CONTENT.hero.badges.map((badge) => (
-              <span
-                key={badge}
-                className="px-4 py-1.5 text-xs font-bold tracking-widest text-ai-cyan/80 border border-ai-cyan/20 rounded-full bg-ai-cyan/5"
-              >
-                {badge}
+    <section id="hero" className="relative min-h-[90vh] w-full flex items-center pt-24 pb-16 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          
+          {/* Left Content */}
+          <div className="max-w-2xl">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <span className="text-ai-accent text-xs font-bold tracking-widest uppercase mb-6 block">
+                {SITE_CONTENT.hero.eyebrow}
               </span>
-            ))}
-          </motion.div>
+            </motion.div>
 
-          {/* Main Heading */}
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-display font-bold leading-[1.05] mb-5 whitespace-pre-line tracking-tight"
-          >
-            {SITE_CONTENT.hero.heading1}
-          </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.1 }}
+              className="text-4xl sm:text-5xl md:text-6xl font-display font-bold leading-[1.1] mb-6 tracking-tight text-balance"
+            >
+              {SITE_CONTENT.hero.headline}
+            </motion.h1>
 
-          {/* Sub Heading */}
-          <motion.h2
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-display font-bold text-ai-cyan mb-8 tracking-tight"
-          >
-            {SITE_CONTENT.hero.heading2}
-          </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-lg md:text-xl text-ai-muted leading-relaxed mb-10 text-balance"
+            >
+              {SITE_CONTENT.hero.support}
+            </motion.p>
 
-          {/* Supporting text */}
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-base sm:text-lg md:text-xl text-white/60 max-w-xl whitespace-pre-line leading-relaxed mb-10"
-          >
-            {SITE_CONTENT.hero.support}
-          </motion.p>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-start sm:items-center gap-6"
+            >
+              <a
+                href="#contact"
+                onClick={scrollTo('#contact')}
+                className="bg-ai-text text-white px-8 py-4 rounded-lg font-medium hover:bg-black transition-colors"
+              >
+                Start a Conversation →
+              </a>
+              <a
+                href="#work"
+                onClick={scrollTo('#work')}
+                className="text-ai-text font-medium hover:text-ai-accent transition-colors"
+              >
+                Explore Our Work
+              </a>
+            </motion.div>
 
-          {/* CTAs */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1, delay: 0.6 }}
+              className="mt-12 pt-6 border-t border-ai-border/50"
+            >
+              <p className="text-xs font-semibold text-ai-muted tracking-wide uppercase">
+                {SITE_CONTENT.hero.subline}
+              </p>
+            </motion.div>
+          </div>
+
+          {/* Right Visual (Calm, abstract, no cliches) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.5 }}
-            className="flex flex-wrap gap-4 items-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="hidden lg:block relative"
           >
-            <a
-              href="#contact"
-              onClick={scrollTo('#contact')}
-              className="group inline-flex items-center gap-2 bg-ai-base text-ai-dark px-7 py-3.5 sm:px-8 sm:py-4 rounded-full font-bold text-sm sm:text-base hover:bg-white hover:shadow-lg hover:shadow-ai-cyan/20 transition-all duration-300"
-            >
-              START BUILDING
-              <span className="group-hover:translate-x-1 transition-transform duration-300">→</span>
-            </a>
-            <a
-              href="#services"
-              onClick={scrollTo('#services')}
-              className="text-white/60 font-bold hover:text-white transition-colors duration-300 uppercase tracking-wider text-xs sm:text-sm px-4 py-3"
-            >
-              EXPLORE THE SYSTEM
-            </a>
+            <div className="aspect-[4/3] bg-ai-card rounded-2xl border border-ai-border shadow-soft flex items-center justify-center p-8 overflow-hidden relative">
+              {/* Very subtle abstract composition */}
+              <div className="absolute top-10 left-10 w-32 h-32 bg-slate-100 rounded-full blur-3xl opacity-50"></div>
+              <div className="absolute bottom-10 right-10 w-40 h-40 bg-stone-100 rounded-full blur-3xl opacity-50"></div>
+              
+              <div className="w-full h-full border border-dashed border-ai-border/60 rounded-xl flex flex-col items-center justify-center gap-4 relative z-10">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-ai-border"></div>
+                  <div className="w-3 h-3 rounded-full bg-ai-border"></div>
+                  <div className="w-3 h-3 rounded-full bg-ai-accent/20"></div>
+                </div>
+                <div className="h-px w-24 bg-ai-border mt-4"></div>
+                <div className="text-ai-muted/40 text-xs font-mono uppercase tracking-widest mt-2">Design & System</div>
+              </div>
+            </div>
           </motion.div>
+
         </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 2 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
-      >
-        <a
-          href="#services"
-          onClick={scrollTo('#services')}
-          className="flex flex-col items-center gap-2 text-white/30 hover:text-white/60 transition-colors"
-          aria-label="Scroll to services"
-        >
-          <span className="text-[10px] tracking-[0.3em] font-bold uppercase">Scroll</span>
-          <ChevronDown size={16} className="animate-bounce" />
-        </a>
-      </motion.div>
     </section>
   );
 };
