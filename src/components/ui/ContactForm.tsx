@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { supabase } from '../../lib/supabase';
+import { db } from '../../lib/firebase';
+import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { motion } from 'framer-motion';
 import { CheckCircle, Send } from 'lucide-react';
 
@@ -19,34 +20,26 @@ export const ContactForm = () => {
     setStatus('submitting');
 
     try {
-      if (supabase) {
-        // Assume Leads table exists or mock it if failing
-        const { error } = await supabase
-          .from('leads')
-          .insert([
-            {
-              full_name: formData.fullName,
-              company_name: formData.companyName,
-              email: formData.email,
-              phone: formData.phone,
-              service: formData.service,
-              message: formData.message,
-              status: 'new'
-            }
-          ]);
-        
-        if (error) {
-           console.error("Supabase Error, using mock success fallback", error);
-        }
+      if (db) {
+        await addDoc(collection(db, 'leads'), {
+          full_name: formData.fullName,
+          company_name: formData.companyName,
+          email: formData.email,
+          phone: formData.phone,
+          service: formData.service,
+          message: formData.message,
+          status: 'new',
+          created_at: serverTimestamp(),
+        });
       }
-      
-      // Artificial delay for cinematic effect
+
+      // Brief delay for smooth UX transition
       setTimeout(() => {
         setStatus('success');
-      }, 1500);
-      
+      }, 1000);
+
     } catch (err) {
-      console.error(err);
+      console.error('Firebase Error:', err);
       setStatus('error');
     }
   };
@@ -161,6 +154,10 @@ export const ContactForm = () => {
         <span>{status === 'submitting' ? 'CONNECTING...' : 'START A CONVERSATION'}</span>
         <Send size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
       </button>
+
+      {status === 'error' && (
+        <p className="text-ai-coral text-sm text-center">Something went wrong. Please try again.</p>
+      )}
     </form>
   );
 };
