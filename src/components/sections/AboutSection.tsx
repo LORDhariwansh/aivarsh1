@@ -4,22 +4,26 @@ import { AnimatedSection } from '../ui/AnimatedSection';
 
 export const AboutSection = () => {
   return (
-    <section id="about" className="py-24 md:py-32 bg-ai-card border-t border-ai-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
+    <section id="about" className="py-32 md:py-48 bg-white border-t border-ai-border/50 overflow-hidden">
+      <div className="max-w-5xl mx-auto px-6 md:px-12 text-center">
         
-        <AnimatedSection className="max-w-3xl mx-auto">
-          <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight mb-10">
-            {SITE_CONTENT.about.heading}
+        <AnimatedSection className="flex flex-col items-center">
+          <div className="w-px h-16 bg-ai-gold mb-10"></div>
+          
+          <h2 className="text-4xl md:text-6xl lg:text-7xl font-display font-medium tracking-tight mb-16 text-ai-forest text-balance leading-[1.1]">
+            Technology should make business simpler.
           </h2>
           
-          <div className="flex flex-col gap-6 text-lg md:text-xl text-ai-muted leading-relaxed mb-12">
+          <div className="flex flex-col gap-8 text-lg md:text-xl text-ai-forest/60 leading-relaxed mb-20 max-w-2xl mx-auto font-light">
             <p>{SITE_CONTENT.about.p1}</p>
             <p>{SITE_CONTENT.about.p2}</p>
           </div>
 
-          <p className="text-xl md:text-2xl font-display font-bold text-ai-text text-balance">
-            {SITE_CONTENT.about.closing}
-          </p>
+          <div className="border-t border-ai-border/30 pt-12 w-full max-w-sm mx-auto">
+            <p className="text-sm tracking-[0.2em] font-semibold text-ai-gold uppercase">
+              {SITE_CONTENT.about.closing}
+            </p>
+          </div>
         </AnimatedSection>
 
       </div>

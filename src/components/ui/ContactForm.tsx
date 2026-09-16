@@ -42,8 +42,8 @@ export const ContactForm = () => {
     }
   };
 
-  const inputClasses = "w-full bg-ai-card border border-ai-border rounded-lg px-4 py-3.5 text-ai-text text-sm placeholder:text-ai-muted focus:outline-none focus:ring-2 focus:ring-ai-accent focus:border-transparent transition-shadow";
-  const labelClasses = "block text-sm font-medium text-ai-text mb-1.5";
+  const inputClasses = "w-full bg-ai-forest border-b border-ai-ivory/20 px-4 py-3 text-ai-ivory text-sm placeholder:text-ai-ivory/30 focus:outline-none focus:border-ai-gold transition-colors font-light rounded-none";
+  const labelClasses = "block text-xs font-semibold tracking-widest uppercase text-ai-ivory/50 mb-2";
 
   if (status === 'success') {
     return (
@@ -51,19 +51,19 @@ export const ContactForm = () => {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col items-center justify-center text-center p-12 bg-ai-card rounded-xl border border-ai-border shadow-soft"
+        className="flex flex-col items-center justify-center text-center p-12 bg-ai-forest border border-ai-ivory/10"
       >
-        <CheckCircle className="w-12 h-12 text-green-600 mb-6" strokeWidth={1.5} />
-        <h3 className="text-xl font-display font-bold mb-2">Message received.</h3>
-        <p className="text-ai-muted text-sm">We'll get back to you shortly to start the conversation.</p>
+        <CheckCircle className="w-12 h-12 text-ai-gold mb-6" strokeWidth={1.5} />
+        <h3 className="text-2xl font-display font-medium mb-2 text-ai-ivory">Message received.</h3>
+        <p className="text-ai-ivory/60 text-sm font-light">We'll get back to you shortly to start the conversation.</p>
       </motion.div>
     );
   }
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate={false}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-8" noValidate={false}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div>
             <label htmlFor="name" className={labelClasses}>Name</label>
             <input 
@@ -87,7 +87,7 @@ export const ContactForm = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
           <div>
             <label htmlFor="phone" className={labelClasses}>Phone / WhatsApp</label>
             <input 
@@ -148,19 +148,20 @@ export const ContactForm = () => {
         <button 
           type="submit" 
           disabled={status === 'submitting'}
-          className="bg-ai-text text-white font-medium px-8 py-4 rounded-lg hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto self-start mt-2"
+          className="bg-ai-ivory text-ai-forest font-medium px-10 py-4 hover:bg-ai-gold hover:text-white transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed w-full sm:w-auto self-start mt-4 flex items-center gap-2 group"
         >
-          {status === 'submitting' ? 'Sending...' : 'Send Enquiry →'}
+          {status === 'submitting' ? 'Sending...' : 'Send Enquiry'}
+          {!status && <span className="group-hover:translate-x-1 transition-transform">→</span>}
         </button>
 
         {status === 'error' && (
-          <p className="text-red-600 text-sm">Something went wrong. Please try again.</p>
+          <p className="text-red-400 text-sm font-light">Something went wrong. Please try again.</p>
         )}
       </form>
 
-      <div className="mt-8 pt-6 border-t border-ai-border">
-        <p className="text-sm text-ai-muted">
-          Prefer WhatsApp? <a href="#" className="text-ai-text font-medium hover:underline ml-1">Chat with AI Varsh →</a>
+      <div className="mt-12 pt-8 border-t border-ai-ivory/10">
+        <p className="text-sm text-ai-ivory/50 font-light">
+          Prefer WhatsApp? <a href="#" className="text-ai-gold font-medium hover:text-ai-ivory transition-colors ml-1">Chat with AI Varsh →</a>
         </p>
       </div>
     </div>

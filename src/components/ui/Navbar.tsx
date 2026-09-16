@@ -38,27 +38,28 @@ export const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12 flex items-center justify-between ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12 flex items-center justify-between ${
           isScrolled
-            ? 'py-4 bg-ai-bg/90 backdrop-blur-md shadow-sm border-b border-ai-border'
+            ? 'py-4 bg-ai-ivory/95 backdrop-blur-md shadow-sm border-b border-ai-border'
             : 'py-6 bg-transparent'
         }`}
         role="navigation"
         aria-label="Main navigation"
       >
         {/* Logo */}
-        <a href="#" onClick={(e) => handleNavClick(e, '#hero')} className="text-ai-text font-display font-bold text-xl tracking-tight z-50 relative">
+        <a href="#" onClick={(e) => handleNavClick(e, '#hero')} className="text-ai-forest font-display font-bold text-xl tracking-tight z-50 relative group">
           AI VARSH
+          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ai-gold transition-all duration-300 group-hover:w-full"></span>
         </a>
 
         {/* Desktop Nav */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-10">
           {NAV_LINKS.map(link => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-sm font-medium text-ai-muted hover:text-ai-text transition-colors duration-300"
+              className="text-sm font-medium text-ai-forest/70 hover:text-ai-gold transition-colors duration-300"
             >
               {link.label}
             </a>
@@ -66,18 +67,18 @@ export const Navbar = () => {
         </div>
 
         {/* CTA + Mobile Toggle */}
-        <div className="flex items-center gap-4 z-50 relative">
+        <div className="flex items-center gap-6 z-50 relative">
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className="hidden sm:inline-flex items-center gap-2 text-ai-text font-medium text-sm hover:opacity-70 transition-opacity"
+            className="hidden sm:inline-flex items-center gap-2 bg-ai-forest text-ai-ivory px-6 py-2.5 text-sm font-medium hover:bg-ai-gold transition-colors duration-300"
           >
             Let's Talk <span className="text-lg leading-none">→</span>
           </a>
 
           {/* Hamburger */}
           <button
-            className="lg:hidden text-ai-text p-2 -mr-2"
+            className="lg:hidden text-ai-forest p-2 -mr-2 hover:text-ai-gold transition-colors"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMobileOpen}
@@ -89,18 +90,18 @@ export const Navbar = () => {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
           isMobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
         <div
-          className="absolute inset-0 bg-white"
+          className="absolute inset-0 bg-ai-ivory"
           onClick={() => setIsMobileOpen(false)}
         />
 
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center gap-8 transition-transform duration-500 ${
-            isMobileOpen ? 'translate-y-0' : '-translate-y-8'
+          className={`absolute inset-0 flex flex-col items-center justify-center gap-10 transition-transform duration-700 ease-out ${
+            isMobileOpen ? 'translate-y-0' : '-translate-y-12'
           }`}
         >
           {NAV_LINKS.map((link, i) => (
@@ -108,8 +109,8 @@ export const Navbar = () => {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-2xl font-display font-semibold text-ai-text hover:text-ai-accent transition-colors"
-              style={{ transitionDelay: isMobileOpen ? `${i * 50}ms` : '0ms' }}
+              className="text-3xl font-display font-medium text-ai-forest hover:text-ai-gold transition-colors"
+              style={{ transitionDelay: isMobileOpen ? `${i * 75}ms` : '0ms' }}
             >
               {link.label}
             </a>
@@ -118,7 +119,7 @@ export const Navbar = () => {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className="mt-4 flex items-center gap-2 text-xl font-medium text-ai-text"
+            className="mt-6 flex items-center gap-2 bg-ai-forest text-ai-ivory px-8 py-4 text-lg font-medium hover:bg-ai-gold transition-colors"
           >
             Let's Talk <span>→</span>
           </a>

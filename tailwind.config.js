@@ -7,21 +7,24 @@ export default {
   theme: {
     extend: {
       colors: {
-        'ai-bg': '#FAFAF9',      // Warm off-white
-        'ai-card': '#FFFFFF',    // Pure white for cards
-        'ai-text': '#1C1C1C',    // Soft charcoal
-        'ai-muted': '#78716C',   // Stone 500 for secondary text
-        'ai-border': '#E7E5E4',  // Stone 200 for subtle borders
-        'ai-accent': '#334155',  // Slate 700 for subtle accents
-        'ai-hover': '#F5F5F4',   // Stone 100 for hover states
+        'ai-ivory': '#F5F3EE',    // Warm Ivory (Primary)
+        'ai-forest': '#17231D',   // Deep Forest (Secondary)
+        'ai-gold': '#B59A62',     // Champagne Gold (Accent)
+        
+        // Semantic mapping for easier component updates
+        'ai-bg': '#F5F3EE',      
+        'ai-text': '#17231D',    
+        'ai-accent': '#B59A62',  
+        'ai-border': '#17231D1A', // Deep Forest with 10% opacity
+        'ai-hover': '#17231D0A',  // Deep Forest with 4% opacity
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        display: ['Manrope', 'sans-serif'],
+        display: ['Playfair Display', 'serif'],
       },
       animation: {
-        'fade-in': 'fadeIn 0.8s ease-out forwards',
-        'slide-up': 'slideUp 0.8s ease-out forwards',
+        'fade-in': 'fadeIn 1s ease-out forwards',
+        'slide-up': 'slideUp 1s ease-out forwards',
       },
       keyframes: {
         fadeIn: {
@@ -34,8 +37,8 @@ export default {
         },
       },
       boxShadow: {
-        'soft': '0 4px 40px -2px rgba(0, 0, 0, 0.04)',
-        'soft-lg': '0 10px 50px -5px rgba(0, 0, 0, 0.05)',
+        'soft': '0 10px 40px -10px rgba(23, 35, 29, 0.05)',
+        'soft-lg': '0 20px 50px -15px rgba(23, 35, 29, 0.08)',
       }
     },
   },
