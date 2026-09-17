@@ -2,10 +2,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
+  { label: 'Services', href: '#services' },
   { label: 'Solutions', href: '#solutions' },
-  { label: 'Work', href: '#work' },
-  { label: 'Industries', href: '#industries' },
+  { label: 'Process', href: '#process' },
   { label: 'About', href: '#about' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const Navbar = () => {
@@ -13,52 +14,54 @@ export const Navbar = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) {
-      target.scrollIntoView({ behavior: 'smooth' });
-    }
-    setIsMobileOpen(false);
-  }, []);
-
-  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isMobileOpen]);
 
+  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    setIsMobileOpen(false);
+  }, []);
+
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 px-6 md:px-12 flex items-center justify-between ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 px-6 md:px-12 flex items-center justify-between ${
           isScrolled
-            ? 'py-4 bg-ai-cloud/80 backdrop-blur-lg border-b border-ai-graphite/5'
-            : 'py-6 bg-transparent border-b border-transparent'
+            ? 'py-3 bg-ai-midnight/80 backdrop-blur-xl border-b border-ai-ivory/5'
+            : 'py-5 bg-transparent border-b border-transparent'
         }`}
         role="navigation"
       >
         {/* Logo */}
-        <a href="#" onClick={(e) => handleNavClick(e, '#hero')} className="text-ai-graphite font-display font-bold text-xl tracking-tight z-50 relative group">
-          AI VARSH
-          <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-ai-teal transition-all duration-300 group-hover:w-full"></span>
+        <a
+          href="#"
+          onClick={(e) => handleNavClick(e, '#hero')}
+          className="flex items-center gap-2.5 z-50 relative group"
+          aria-label="AI-VARSH Home"
+        >
+          <img src="/favicon.svg" alt="" className="w-7 h-7" aria-hidden="true" />
+          <span className="font-display font-bold text-lg tracking-tight text-ai-ivory">
+            AI-VARSH
+          </span>
         </a>
 
         {/* Desktop Nav */}
         <div className="hidden lg:flex items-center gap-10">
-          {NAV_LINKS.map(link => (
+          {NAV_LINKS.map((link) => (
             <a
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-sm font-semibold text-ai-graphite/60 hover:text-ai-teal transition-colors duration-300 tracking-wide"
+              className="text-sm font-medium text-ai-muted hover:text-ai-saffron transition-colors duration-300 tracking-wide"
             >
               {link.label}
             </a>
@@ -70,14 +73,14 @@ export const Navbar = () => {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className="hidden sm:inline-flex items-center gap-2 text-ai-graphite font-bold text-sm hover:text-ai-teal transition-colors group"
+            className="hidden sm:inline-flex items-center gap-2 text-sm font-bold text-ai-midnight bg-ai-saffron px-5 py-2.5 rounded-full hover:bg-ai-saffron/90 transition-all duration-300 group"
           >
-            Let's Talk <span className="group-hover:translate-x-1 transition-transform">→</span>
+            LET'S TALK
+            <span className="group-hover:translate-x-0.5 transition-transform">→</span>
           </a>
 
-          {/* Hamburger */}
           <button
-            className="lg:hidden text-ai-graphite p-2 -mr-2 hover:text-ai-teal transition-colors"
+            className="lg:hidden text-ai-ivory p-2 -mr-2 hover:text-ai-saffron transition-colors"
             onClick={() => setIsMobileOpen(!isMobileOpen)}
             aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
           >
@@ -92,13 +95,10 @@ export const Navbar = () => {
           isMobileOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
       >
-        <div
-          className="absolute inset-0 bg-ai-cloud"
-          onClick={() => setIsMobileOpen(false)}
-        />
+        <div className="absolute inset-0 bg-ai-midnight" onClick={() => setIsMobileOpen(false)} />
 
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center gap-10 transition-transform duration-700 ease-out ${
+          className={`absolute inset-0 flex flex-col items-center justify-center gap-8 transition-transform duration-700 ease-out ${
             isMobileOpen ? 'translate-y-0' : '-translate-y-12'
           }`}
         >
@@ -107,7 +107,7 @@ export const Navbar = () => {
               key={link.href}
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
-              className="text-3xl font-display font-bold text-ai-graphite hover:text-ai-teal transition-colors"
+              className="text-3xl font-display font-bold text-ai-ivory hover:text-ai-saffron transition-colors"
               style={{ transitionDelay: isMobileOpen ? `${i * 75}ms` : '0ms' }}
             >
               {link.label}
@@ -117,9 +117,9 @@ export const Navbar = () => {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, '#contact')}
-            className="mt-6 flex items-center gap-2 bg-ai-graphite text-ai-cloud px-8 py-4 text-lg font-bold hover:bg-ai-teal transition-colors rounded-lg"
+            className="mt-4 flex items-center gap-2 bg-ai-saffron text-ai-midnight px-8 py-4 text-lg font-bold rounded-full hover:bg-ai-saffron/90 transition-colors"
           >
-            Let's Talk <span>→</span>
+            LET'S TALK <span>→</span>
           </a>
         </div>
       </div>

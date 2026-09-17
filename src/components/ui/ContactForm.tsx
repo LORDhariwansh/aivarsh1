@@ -12,7 +12,7 @@ export const ContactForm = () => {
     phone: '',
     email: '',
     service: 'AI & Automation',
-    message: ''
+    message: '',
   });
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -32,93 +32,91 @@ export const ContactForm = () => {
           created_at: serverTimestamp(),
         });
       }
-
-      setTimeout(() => {
-        setStatus('success');
-      }, 800);
+      setTimeout(() => setStatus('success'), 800);
     } catch (err) {
       console.error('Firebase Error:', err);
       setStatus('error');
     }
   };
 
-  const inputClasses = "w-full bg-white border border-ai-graphite/10 rounded-lg px-4 py-3.5 text-ai-graphite text-base placeholder:text-ai-graphite/30 focus:outline-none focus:border-ai-teal focus:ring-1 focus:ring-ai-teal transition-all font-medium shadow-sm hover:border-ai-graphite/20";
-  const labelClasses = "block text-sm font-bold text-ai-graphite/80 mb-2";
+  const inputClasses =
+    'w-full bg-ai-charcoal/80 border border-ai-ivory/10 rounded-lg px-4 py-3.5 text-ai-ivory text-base placeholder:text-ai-muted/40 focus:outline-none focus:border-ai-saffron/60 focus:ring-1 focus:ring-ai-saffron/30 transition-all font-medium hover:border-ai-ivory/20';
+  const labelClasses = 'block text-xs tracking-[0.15em] uppercase font-bold text-ai-muted/60 mb-2';
 
   if (status === 'success') {
     return (
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.4 }}
-        className="flex flex-col items-center justify-center text-center p-12 bg-white rounded-xl border border-ai-graphite/10 shadow-modern-sm"
+        className="flex flex-col items-center justify-center text-center p-12 bg-ai-charcoal border border-ai-ivory/10 rounded-2xl"
       >
-        <CheckCircle className="w-12 h-12 text-ai-teal mb-6" strokeWidth={2} />
-        <h3 className="text-2xl font-display font-bold mb-2 text-ai-graphite">Message received.</h3>
-        <p className="text-ai-graphite/60 text-base font-medium">We'll get back to you shortly to start the conversation.</p>
+        <CheckCircle className="w-12 h-12 text-ai-saffron mb-6" strokeWidth={2} />
+        <h3 className="text-2xl font-display font-bold mb-2 text-ai-ivory">Message received.</h3>
+        <p className="text-base text-ai-muted font-medium">We'll get back to you shortly to start the conversation.</p>
       </motion.div>
     );
   }
 
   return (
     <div className="w-full">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-6" noValidate={false}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate={false}>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label htmlFor="name" className={labelClasses}>Name</label>
-            <input 
+            <input
               id="name"
               required
-              type="text" 
+              type="text"
               className={inputClasses}
               value={formData.name}
-              onChange={e => setFormData({...formData, name: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             />
           </div>
           <div>
             <label htmlFor="business" className={labelClasses}>Business</label>
-            <input 
+            <input
               id="business"
-              type="text" 
+              type="text"
               className={inputClasses}
               value={formData.business}
-              onChange={e => setFormData({...formData, business: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, business: e.target.value })}
             />
           </div>
         </div>
-        
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
           <div>
             <label htmlFor="phone" className={labelClasses}>WhatsApp / Phone</label>
-            <input 
+            <input
               id="phone"
-              type="tel" 
+              type="tel"
               required
               className={inputClasses}
               value={formData.phone}
-              onChange={e => setFormData({...formData, phone: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             />
           </div>
           <div>
             <label htmlFor="email" className={labelClasses}>Email</label>
-            <input 
+            <input
               id="email"
               required
-              type="email" 
+              type="email"
               className={inputClasses}
               value={formData.email}
-              onChange={e => setFormData({...formData, email: e.target.value})}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             />
           </div>
         </div>
 
         <div>
           <label htmlFor="service" className={labelClasses}>What do you need?</label>
-          <select 
+          <select
             id="service"
             className={`${inputClasses} appearance-none cursor-pointer`}
             value={formData.service}
-            onChange={e => setFormData({...formData, service: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, service: e.target.value })}
           >
             <option value="AI & Automation">AI & Automation</option>
             <option value="Website">Website</option>
@@ -127,6 +125,7 @@ export const ContactForm = () => {
             <option value="Graphic Design">Graphic Design</option>
             <option value="Video Editing">Video Editing</option>
             <option value="Branding">Branding</option>
+            <option value="Computer Vision">Computer Vision</option>
             <option value="Custom Solution">Custom Solution</option>
             <option value="Not Sure Yet">Not Sure Yet</option>
           </select>
@@ -134,28 +133,28 @@ export const ContactForm = () => {
 
         <div>
           <label htmlFor="message" className={labelClasses}>Message</label>
-          <textarea 
+          <textarea
             id="message"
             required
-            placeholder="Tell us what you have in mind..." 
+            placeholder="Tell us what you have in mind..."
             rows={4}
             className={`${inputClasses} resize-none`}
             value={formData.message}
-            onChange={e => setFormData({...formData, message: e.target.value})}
+            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
           />
         </div>
 
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           disabled={status === 'submitting'}
-          className="bg-ai-graphite text-white font-bold px-8 py-4 rounded-lg hover:bg-ai-teal transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed w-full mt-2 flex items-center justify-center gap-2 group shadow-modern-sm"
+          className="bg-ai-saffron text-ai-midnight font-bold px-8 py-4 rounded-lg hover:bg-ai-saffron/90 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed w-full mt-2 flex items-center justify-center gap-2 group text-sm tracking-wide"
         >
-          {status === 'submitting' ? 'Sending...' : 'Start a Conversation'}
-          {!status && <span className="group-hover:translate-x-1 transition-transform">→</span>}
+          {status === 'submitting' ? 'Sending...' : 'START A CONVERSATION'}
+          {status !== 'submitting' && <span className="group-hover:translate-x-1 transition-transform">→</span>}
         </button>
 
         {status === 'error' && (
-          <p className="text-red-500 text-sm font-medium text-center">Something went wrong. Please try again.</p>
+          <p className="text-red-400 text-sm font-medium text-center">Something went wrong. Please try again.</p>
         )}
       </form>
     </div>
