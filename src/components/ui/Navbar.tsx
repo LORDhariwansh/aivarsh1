@@ -48,7 +48,7 @@ export const Navbar = () => {
           className="flex items-center gap-2.5 z-50 relative group"
           aria-label="AI-VARSH Home"
         >
-          <img src="/favicon.svg" alt="" className="w-7 h-7" aria-hidden="true" />
+          <img src="/logo.png" alt="AI-VARSH Logo" className="w-10 h-10 rounded-full" />
           <span className="font-display font-bold text-lg tracking-tight text-ai-ivory">
             AI-VARSH
           </span>

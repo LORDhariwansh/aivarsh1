@@ -16,7 +16,7 @@ export const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-5 pr-8">
             <div className="flex items-center gap-2.5 mb-4">
-              <img src="/favicon.svg" alt="" className="w-7 h-7" aria-hidden="true" />
+              <img src="/logo.png" alt="AI-VARSH Logo" className="w-10 h-10 rounded-full" />
               <span className="font-display font-bold text-xl tracking-tight text-ai-ivory">AI-VARSH</span>
             </div>
             <p className="text-sm text-ai-ivory/40 leading-relaxed max-w-xs mb-4 font-medium">
@@ -55,10 +55,10 @@ export const Footer = () => {
           <div className="lg:col-span-2">
             <h4 className="text-xs tracking-[0.2em] uppercase text-ai-muted/40 mb-6 font-bold">Connect</h4>
             <ul className="flex flex-col gap-3">
-              <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">WhatsApp</a></li>
-              <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Instagram</a></li>
+              <li><a href="https://wa.me/917804877448" target="_blank" rel="noopener noreferrer" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">WhatsApp</a></li>
+              <li><a href="https://www.instagram.com/ai.varsh/" target="_blank" rel="noopener noreferrer" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Instagram</a></li>
               <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">LinkedIn</a></li>
-              <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Email</a></li>
+              <li><a href="mailto:contact@ai-varsh.com" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Email</a></li>
             </ul>
           </div>
         </div>
