@@ -1,54 +1,106 @@
 import React from 'react';
+import { ArrowUpRight } from 'lucide-react';
+
+const INDEX_LINKS = [
+  { label: 'Services', href: '#services' },
+  { label: 'Solutions', href: '#solutions' },
+  { label: 'Process', href: '#process' },
+  { label: 'About', href: '#about' },
+];
+
+const CONNECT_LINKS = [
+  { label: 'WhatsApp', href: 'https://wa.me/917804877448', external: true },
+  { label: 'Instagram', href: 'https://www.instagram.com/ai.varsh/', external: true },
+  { label: 'Email', href: 'mailto:contact@ai-varsh.com', external: false },
+];
 
 export const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   const scrollTo = (href: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    const target = document.querySelector(href);
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <footer className="bg-taste-bg border-t border-taste-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-          <div className="lg:col-span-5 pr-8">
-            <div className="flex items-center gap-3 mb-6">
-              <img src="/logo.png" alt="AI-VARSH Logo" className="w-8 h-8 rounded-full opacity-90" />
-              <span className="font-display font-medium text-xl tracking-tight text-taste-text">AI-VARSH</span>
-            </div>
-            <p className="text-sm text-taste-muted leading-relaxed max-w-xs font-light">
-              Intelligence. Creativity. Growth. Modern digital solutions.
+    <footer className="bg-black border-t border-zinc-800">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-2 md:grid-cols-12 gap-y-16 gap-x-8 py-20 md:py-24">
+
+          {/* Brand column */}
+          <div className="col-span-2 md:col-span-5">
+            <a href="#" className="inline-flex items-center gap-3 mb-10 group">
+              <img src="/logo.png" alt="AI-VARSH" className="w-7 h-7 object-contain" />
+              <span className="font-display font-semibold text-base tracking-tight text-zinc-50 group-hover:text-zinc-300 transition-colors duration-200">
+                AI-VARSH
+              </span>
+            </a>
+            <p className="text-2xl md:text-3xl font-display font-semibold tracking-tighter text-zinc-50 leading-tight max-w-xs">
+              Intelligence.<br />Creativity.<br />Growth.
             </p>
+            <p className="mt-6 text-sm text-zinc-500 leading-relaxed max-w-xs font-light">
+              AI automation, development, design and digital growth — built for real business outcomes.
+            </p>
+            <a
+              href="#contact"
+              onClick={scrollTo('#contact')}
+              className="mt-8 inline-flex items-center gap-2 text-[11px] font-mono uppercase tracking-[0.18em] border border-zinc-700 text-zinc-50 px-5 py-3 hover:border-[#E85D04] hover:text-[#E85D04] transition-all duration-200"
+            >
+              Start a project
+              <ArrowUpRight size={11} strokeWidth={1.5} />
+            </a>
           </div>
 
-          <div className="lg:col-span-2 lg:col-start-7">
-            <h4 className="text-[10px] tracking-[0.2em] uppercase text-taste-muted mb-8 font-medium">Index</h4>
+          {/* Index column */}
+          <div className="col-span-1 md:col-span-2 md:col-start-7">
+            <p className="text-[10px] font-mono tracking-[0.22em] uppercase text-zinc-600 mb-6 border-b border-zinc-800 pb-4">
+              Index
+            </p>
             <ul className="flex flex-col gap-4">
-              <li><a href="#services" onClick={scrollTo('#services')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Services</a></li>
-              <li><a href="#solutions" onClick={scrollTo('#solutions')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Solutions</a></li>
-              <li><a href="#process" onClick={scrollTo('#process')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Process</a></li>
+              {INDEX_LINKS.map(({ label, href }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    onClick={scrollTo(href)}
+                    className="text-sm text-zinc-400 hover:text-zinc-50 transition-colors duration-200 font-light"
+                  >
+                    {label}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 
-          <div className="lg:col-span-2">
-            <h4 className="text-[10px] tracking-[0.2em] uppercase text-taste-muted mb-8 font-medium">Social</h4>
+          {/* Connect column */}
+          <div className="col-span-1 md:col-span-2">
+            <p className="text-[10px] font-mono tracking-[0.22em] uppercase text-zinc-600 mb-6 border-b border-zinc-800 pb-4">
+              Connect
+            </p>
             <ul className="flex flex-col gap-4">
-              <li><a href="https://wa.me/917804877448" target="_blank" rel="noopener noreferrer" className="text-sm text-taste-muted hover:text-taste-text transition-colors">WhatsApp</a></li>
-              <li><a href="https://www.instagram.com/ai.varsh/" target="_blank" rel="noopener noreferrer" className="text-sm text-taste-muted hover:text-taste-text transition-colors">Instagram</a></li>
-              <li><a href="mailto:contact@ai-varsh.com" className="text-sm text-taste-muted hover:text-taste-text transition-colors">Email</a></li>
+              {CONNECT_LINKS.map(({ label, href, external }) => (
+                <li key={href}>
+                  <a
+                    href={href}
+                    {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-50 transition-colors duration-200 font-light"
+                  >
+                    {label}
+                    {external && <ArrowUpRight size={11} strokeWidth={1.5} className="opacity-40" />}
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
       </div>
 
-      <div className="border-t border-taste-border px-6 md:px-12 py-8">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[11px] uppercase tracking-widest text-taste-muted font-medium">
-            © {currentYear} AI-VARSH
+      {/* Bottom bar */}
+      <div className="border-t border-zinc-900">
+        <div className="max-w-7xl mx-auto px-6 md:px-12 py-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <p className="text-[10px] font-mono tracking-[0.22em] text-zinc-700 uppercase">
+            © {currentYear} AI-VARSH. All rights reserved.
           </p>
-          <p className="text-[11px] uppercase tracking-widest text-taste-muted font-medium">
+          <p className="text-[10px] font-mono tracking-[0.22em] text-zinc-700 uppercase">
             Built in India
           </p>
         </div>

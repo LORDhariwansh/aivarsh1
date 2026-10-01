@@ -4,8 +4,8 @@ import { Footer } from './components/ui/Footer';
 import { Hero } from './components/sections/Hero';
 import { TrustSection } from './components/sections/TrustSection';
 import { ServicesSection } from './components/sections/ServicesSection';
-import { InteractiveNeedsSection } from './components/sections/InteractiveNeedsSection';
 import { SolutionsSection } from './components/sections/SolutionsSection';
+import { InteractiveNeedsSection } from './components/sections/InteractiveNeedsSection';
 import { StorySection } from './components/sections/StorySection';
 import { WebAppSection } from './components/sections/WebAppSection';
 import { WorkSection } from './components/sections/WorkSection';
@@ -18,24 +18,22 @@ import { ErrorBoundary } from './ErrorBoundary';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="relative w-full text-taste-text bg-taste-bg selection:bg-taste-text selection:text-taste-bg font-sans">
+      <div className="relative w-full text-zinc-50 bg-black selection:bg-zinc-50 selection:text-black font-sans">
         <Navbar />
-
-        <main className="relative w-full z-0 flex flex-col selection:bg-taste-text selection:text-taste-bg">
+        <main className="relative w-full z-0 flex flex-col">
           <Hero />
           <TrustSection />
           <ServicesSection />
-          <InteractiveNeedsSection />
           <SolutionsSection />
+          <InteractiveNeedsSection />
+          <WorkSection />
           <ProcessSection />
           <StorySection />
           <WebAppSection />
-          <WorkSection />
           <AboutSection />
           <FaqSection />
           <FinalSection />
         </main>
-
         <Footer />
       </div>
     </ErrorBoundary>

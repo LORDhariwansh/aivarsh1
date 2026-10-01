@@ -1,54 +1,55 @@
 import React, { useState } from 'react';
 import { SITE_CONTENT } from '../../data/content';
 import { AnimatedSection } from '../ui/AnimatedSection';
-import { Plus, Minus } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Plus, Minus } from 'lucide-react';
 
 export const FaqSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   return (
-    <section className="py-24 md:py-40 bg-taste-surface border-t border-taste-border">
+    <section className="py-32 md:py-48 bg-zinc-950 border-t border-zinc-800">
       <div className="max-w-4xl mx-auto px-6 md:px-12">
         <AnimatedSection className="mb-16">
-          <h2 className="text-2xl font-display font-medium tracking-tight text-taste-text">
-            FAQ
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-display font-medium tracking-tighter text-zinc-50">FAQ</h2>
         </AnimatedSection>
 
-        <div className="flex flex-col border-t border-taste-border">
+        <div className="border-t border-zinc-800">
           {SITE_CONTENT.faq.questions.map((faq, index) => {
             const isOpen = openIndex === index;
             return (
-              <AnimatedSection key={index} delay={index * 50}>
-                <div className="border-b border-taste-border group">
+              <AnimatedSection key={index} delay={index * 40}>
+                <div className="border-b border-zinc-800">
                   <button
                     onClick={() => setOpenIndex(isOpen ? null : index)}
-                    className="w-full text-left py-6 flex items-center justify-between gap-4 focus:outline-none"
+                    className="w-full text-left py-7 flex items-center justify-between gap-6 group"
                   >
-                    <span className={`font-medium text-lg transition-colors ${
-                      isOpen ? 'text-taste-muted' : 'text-taste-text group-hover:text-taste-muted'
-                    }`}>
-                      {faq.q}
-                    </span>
-                    <span className={`shrink-0 transition-colors ${
-                      isOpen ? 'text-taste-muted' : 'text-taste-muted/30 group-hover:text-taste-muted'
-                    }`}>
-                      {isOpen ? <Minus size={16} strokeWidth={1.5} /> : <Plus size={16} strokeWidth={1.5} />}
+                    <div className="flex items-center gap-6">
+                      <span className="text-[10px] font-mono text-zinc-700 shrink-0">{String(index + 1).padStart(2, '0')}</span>
+                      <span className={`text-lg font-medium transition-colors duration-200 ${
+                        isOpen ? 'text-[#E85D04]' : 'text-zinc-50 group-hover:text-zinc-300'
+                      }`}>
+                        {faq.q}
+                      </span>
+                    </div>
+                    <span className="shrink-0 text-zinc-600">
+                      {isOpen
+                        ? <Minus size={16} strokeWidth={1.5} />
+                        : <Plus size={16} strokeWidth={1.5} />}
                     </span>
                   </button>
-
                   <AnimatePresence>
                     {isOpen && (
                       <motion.div
                         initial={{ height: 0, opacity: 0 }}
                         animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                        className="overflow-hidden"
                       >
-                        <div className="pb-8 text-taste-muted text-base font-light leading-relaxed max-w-3xl pr-8">
+                        <p className="pb-8 pl-14 text-sm text-zinc-500 font-light leading-relaxed max-w-2xl">
                           {faq.a}
-                        </div>
+                        </p>
                       </motion.div>
                     )}
                   </AnimatePresence>

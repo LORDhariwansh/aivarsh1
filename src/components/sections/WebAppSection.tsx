@@ -1,33 +1,38 @@
 import React from 'react';
-import { AnimatedSection } from '../ui/AnimatedSection';
+import { motion } from 'framer-motion';
 
 const technologies = [
-  'React / Next.js', 'TypeScript', 'Node.js',
+  'React', 'Next.js', 'TypeScript', 'Node.js',
   'Python', 'Computer Vision', 'Generative AI',
-  'Cloud Architecture', 'Database Design', 'Workflow Automation'
+  'Cloud Architecture', 'PostgreSQL', 'Firebase'
 ];
 
 export const WebAppSection = () => {
   return (
-    <section className="py-24 md:py-32 bg-taste-bg border-t border-taste-border">
+    <section className="py-24 md:py-32 bg-black border-t border-zinc-800">
       <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <AnimatedSection className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
-          <div className="md:col-span-5 lg:col-span-4">
-            <h2 className="text-2xl font-display font-medium tracking-tight text-taste-text mb-6">
-              Technology Stack
-            </h2>
-            <p className="text-taste-muted text-sm font-light leading-relaxed">
-              We use modern, reliable tools. No legacy code, no bloated frameworks. Just fast, scalable, and secure technology tailored for scale.
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-start">
+          <div className="md:col-span-4">
+            <h2 className="text-2xl font-display font-medium tracking-tight text-zinc-50 mb-6">Technology Stack</h2>
+            <p className="text-sm text-zinc-500 font-light leading-relaxed">
+              Modern, reliable tooling. No legacy debt, no bloated dependencies.
             </p>
           </div>
-          <div className="md:col-span-7 lg:col-span-8 flex flex-wrap gap-3 content-start">
-            {technologies.map((tech) => (
-              <span key={tech} className="px-5 py-3 border border-taste-border bg-taste-surface text-xs text-taste-muted font-mono tracking-wide hover:border-taste-text hover:text-taste-text transition-colors duration-300">
+          <div className="md:col-span-8 flex flex-wrap gap-2">
+            {technologies.map((tech, i) => (
+              <motion.span
+                key={tech}
+                initial={{ opacity: 0, y: 12 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.3 }}
+                transition={{ duration: 0.5, delay: i * 0.05, ease: [0.16, 1, 0.3, 1] }}
+                className="px-5 py-2.5 border border-zinc-800 bg-zinc-950 text-xs text-zinc-400 font-mono tracking-wide hover:border-zinc-600 hover:text-zinc-50 transition-all duration-300 cursor-default"
+              >
                 {tech}
-              </span>
+              </motion.span>
             ))}
           </div>
-        </AnimatedSection>
+        </div>
       </div>
     </section>
   );
