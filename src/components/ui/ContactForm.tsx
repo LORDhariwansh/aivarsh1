@@ -23,27 +23,67 @@ export const ContactForm = () => {
     }
   };
 
-  const inputClass = "w-full bg-transparent border-b border-taste-border py-4 text-taste-text text-base placeholder:text-taste-muted/40 focus:outline-none focus:border-taste-text transition-colors rounded-none font-light";
+  const inputClass = "w-full bg-taste-surface border border-taste-border px-4 py-3 text-taste-text text-sm focus:outline-none focus:border-taste-muted transition-colors rounded-none font-light";
+  const labelClass = "block text-[11px] font-mono tracking-widest uppercase text-taste-muted mb-2";
 
   if (status === 'success') {
     return (
-      <div className="p-8 border border-taste-border text-center">
-        <h3 className="text-xl font-medium mb-2 text-taste-text">Message received.</h3>
-        <p className="text-sm text-taste-muted font-light">We will be in touch shortly.</p>
+      <div className="p-12 border border-taste-border bg-taste-surface text-left">
+        <h3 className="text-2xl font-display font-medium mb-3 text-taste-text">Message received.</h3>
+        <p className="text-sm text-taste-muted font-light">We will be in touch shortly to start the conversation.</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-8 w-full max-w-md">
-      <input id="name" required type="text" placeholder="Name" className={inputClass} value={formData.name} onChange={e => setFormData({ ...formData, name: e.target.value })} />
-      <input id="email" required type="email" placeholder="Email" className={inputClass} value={formData.email} onChange={e => setFormData({ ...formData, email: e.target.value })} />
-      <textarea id="message" required placeholder="Project details" rows={4} className={`${inputClass} resize-none`} value={formData.message} onChange={e => setFormData({ ...formData, message: e.target.value })} />
+    <form onSubmit={handleSubmit} className="flex flex-col gap-6 w-full max-w-md">
+      <div>
+        <label htmlFor="name" className={labelClass}>Name</label>
+        <input 
+          id="name" 
+          required 
+          type="text" 
+          className={inputClass} 
+          value={formData.name} 
+          onChange={e => setFormData({ ...formData, name: e.target.value })} 
+        />
+      </div>
       
-      <button type="submit" disabled={status === 'submitting'} className="bg-taste-text text-taste-bg font-medium px-8 py-4 w-full mt-4 hover:bg-taste-muted transition-colors disabled:opacity-50">
-        {status === 'submitting' ? 'Sending...' : 'Submit'}
+      <div>
+        <label htmlFor="email" className={labelClass}>Email Address</label>
+        <input 
+          id="email" 
+          required 
+          type="email" 
+          className={inputClass} 
+          value={formData.email} 
+          onChange={e => setFormData({ ...formData, email: e.target.value })} 
+        />
+      </div>
+      
+      <div>
+        <label htmlFor="message" className={labelClass}>Project Details</label>
+        <textarea 
+          id="message" 
+          required 
+          rows={5} 
+          className={`${inputClass} resize-none`} 
+          value={formData.message} 
+          onChange={e => setFormData({ ...formData, message: e.target.value })} 
+        />
+      </div>
+      
+      <button 
+        type="submit" 
+        disabled={status === 'submitting'} 
+        className="bg-taste-text text-taste-bg font-medium px-8 py-4 w-full mt-2 hover:bg-taste-muted transition-colors disabled:opacity-50 text-sm"
+      >
+        {status === 'submitting' ? 'Sending...' : 'Submit Inquiry'}
       </button>
-      {status === 'error' && <p className="text-red-400 text-xs mt-2 text-center">An error occurred. Please try again.</p>}
+      
+      {status === 'error' && (
+        <p className="text-taste-accent text-xs mt-2">An error occurred. Please try again or email us directly.</p>
+      )}
     </form>
   );
 };

@@ -11,10 +11,10 @@ export const StorySection = () => {
           </h2>
 
           <div className="max-w-2xl mx-auto">
-            <p className="text-lg text-taste-muted leading-relaxed font-light mb-6">
-              AI-VARSH combines AI, development, automation, and design to solve real business problems without unnecessary complexity.
+            <p className="text-lg md:text-xl text-taste-muted leading-relaxed font-light mb-8">
+              AI-VARSH combines engineering, automation, and design to solve real business problems without unnecessary complexity. We remove the noise.
             </p>
-            <p className="text-sm text-taste-muted/60 leading-relaxed font-light">
+            <p className="text-xs font-mono tracking-widest text-taste-muted/60 uppercase">
               Based in India. Working globally.
             </p>
           </div>
