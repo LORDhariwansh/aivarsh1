@@ -10,68 +10,46 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-ai-midnight border-t border-ai-ivory/5" role="contentinfo">
-      <div className="max-w-7xl mx-auto px-6 md:px-12 py-20 md:py-24">
+    <footer className="bg-taste-bg border-t border-taste-border">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 py-24 md:py-32">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8">
-          {/* Brand */}
           <div className="lg:col-span-5 pr-8">
-            <div className="flex items-center gap-2.5 mb-4">
-              <img src="/logo.png" alt="AI-VARSH Logo" className="w-10 h-10 rounded-full" />
-              <span className="font-display font-bold text-xl tracking-tight text-ai-ivory">AI-VARSH</span>
+            <div className="flex items-center gap-3 mb-6">
+              <img src="/logo.png" alt="AI-VARSH Logo" className="w-8 h-8 rounded-full opacity-90" />
+              <span className="font-display font-medium text-xl tracking-tight text-taste-text">AI-VARSH</span>
             </div>
-            <p className="text-sm text-ai-ivory/40 leading-relaxed max-w-xs mb-4 font-medium">
-              Intelligence. Creativity. Growth.
-            </p>
-            <p className="text-sm text-ai-muted/60 leading-relaxed max-w-sm">
-              Modern digital solutions combining technology, creativity and AI to help businesses grow.
+            <p className="text-sm text-taste-muted leading-relaxed max-w-xs font-light">
+              Intelligence. Creativity. Growth. Modern digital solutions.
             </p>
           </div>
 
-          {/* Navigation */}
           <div className="lg:col-span-2 lg:col-start-7">
-            <h4 className="text-xs tracking-[0.2em] uppercase text-ai-muted/40 mb-6 font-bold">Navigation</h4>
-            <ul className="flex flex-col gap-3">
-              <li><a href="#services" onClick={scrollTo('#services')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Services</a></li>
-              <li><a href="#solutions" onClick={scrollTo('#solutions')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Solutions</a></li>
-              <li><a href="#process" onClick={scrollTo('#process')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Process</a></li>
-              <li><a href="#about" onClick={scrollTo('#about')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">About</a></li>
-              <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Contact</a></li>
+            <h4 className="text-[10px] tracking-[0.2em] uppercase text-taste-muted mb-8 font-medium">Index</h4>
+            <ul className="flex flex-col gap-4">
+              <li><a href="#services" onClick={scrollTo('#services')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Services</a></li>
+              <li><a href="#solutions" onClick={scrollTo('#solutions')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Solutions</a></li>
+              <li><a href="#process" onClick={scrollTo('#process')} className="text-sm text-taste-muted hover:text-taste-text transition-colors">Process</a></li>
             </ul>
           </div>
 
-          {/* Services */}
-          <div className="lg:col-span-3">
-            <h4 className="text-xs tracking-[0.2em] uppercase text-ai-muted/40 mb-6 font-bold">Services</h4>
-            <ul className="flex flex-col gap-3">
-              <li className="text-sm text-ai-muted font-medium">AI & Automation</li>
-              <li className="text-sm text-ai-muted font-medium">Web & Apps</li>
-              <li className="text-sm text-ai-muted font-medium">SEO & Growth</li>
-              <li className="text-sm text-ai-muted font-medium">Design & Creative</li>
-              <li className="text-sm text-ai-muted font-medium">Computer Vision</li>
-            </ul>
-          </div>
-
-          {/* Connect */}
           <div className="lg:col-span-2">
-            <h4 className="text-xs tracking-[0.2em] uppercase text-ai-muted/40 mb-6 font-bold">Connect</h4>
-            <ul className="flex flex-col gap-3">
-              <li><a href="https://wa.me/917804877448" target="_blank" rel="noopener noreferrer" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">WhatsApp</a></li>
-              <li><a href="https://www.instagram.com/ai.varsh/" target="_blank" rel="noopener noreferrer" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Instagram</a></li>
-              <li><a href="#contact" onClick={scrollTo('#contact')} className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">LinkedIn</a></li>
-              <li><a href="mailto:contact@ai-varsh.com" className="text-sm text-ai-muted hover:text-ai-saffron transition-colors font-medium">Email</a></li>
+            <h4 className="text-[10px] tracking-[0.2em] uppercase text-taste-muted mb-8 font-medium">Social</h4>
+            <ul className="flex flex-col gap-4">
+              <li><a href="https://wa.me/917804877448" target="_blank" rel="noopener noreferrer" className="text-sm text-taste-muted hover:text-taste-text transition-colors">WhatsApp</a></li>
+              <li><a href="https://www.instagram.com/ai.varsh/" target="_blank" rel="noopener noreferrer" className="text-sm text-taste-muted hover:text-taste-text transition-colors">Instagram</a></li>
+              <li><a href="mailto:contact@ai-varsh.com" className="text-sm text-taste-muted hover:text-taste-text transition-colors">Email</a></li>
             </ul>
           </div>
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-ai-ivory/5 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-ai-muted/40 font-medium">
-            © {currentYear} AI-VARSH. All rights reserved.
+      <div className="border-t border-taste-border px-6 md:px-12 py-8">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <p className="text-[11px] uppercase tracking-widest text-taste-muted font-medium">
+            © {currentYear} AI-VARSH
           </p>
-          <p className="text-xs text-ai-muted/30 font-medium">
-            Designed & built by AI-VARSH
+          <p className="text-[11px] uppercase tracking-widest text-taste-muted font-medium">
+            Built in India
           </p>
         </div>
       </div>

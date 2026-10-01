@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HeroGeometry } from '../ui/HeroGeometry';
 
 export const Hero = () => {
   const scrollTo = (href: string) => (e: React.MouseEvent) => {
@@ -10,70 +9,78 @@ export const Hero = () => {
   };
 
   return (
-    <section id="hero" className="relative min-h-screen w-full flex items-center pt-28 pb-20 overflow-hidden bg-ai-midnight">
-      <HeroGeometry />
+    <section id="hero" className="relative min-h-[90vh] w-full flex items-center pt-32 pb-20 overflow-hidden bg-taste-bg">
+      {/* Subtle Noise Texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.015] mix-blend-overlay pointer-events-none"
+        style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }}
+      />
+      
+      {/* Grid Pattern */}
+      <div 
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(#FAFAFA 1px, transparent 1px), linear-gradient(90deg, #FAFAFA 1px, transparent 1px)',
+          backgroundSize: '120px 120px',
+          backgroundPosition: 'center center'
+        }}
+      />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10">
-        <div className="max-w-4xl">
-          {/* Eyebrow */}
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-            className="text-xs tracking-[0.3em] uppercase text-ai-saffron/80 mb-8 font-bold flex items-center gap-3"
-          >
-            <span className="w-6 h-px bg-ai-saffron/40" />
-            AI • TECHNOLOGY • CREATIVITY
-          </motion.p>
+      <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 flex flex-col items-center text-center">
+        {/* Eyebrow */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="text-xs tracking-[0.4em] uppercase text-taste-muted mb-10 font-medium"
+        >
+          AI • Technology • Creativity
+        </motion.p>
 
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.15, ease: 'easeOut' }}
-            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-display font-extrabold leading-[1.05] mb-8 tracking-tight text-ai-ivory"
-          >
-            BUILD.
-            <br />
-            AUTOMATE.
-            <br />
-            <span className="text-ai-saffron">GROW.</span>
-          </motion.h1>
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-6xl sm:text-7xl lg:text-8xl xl:text-[9rem] font-display font-medium leading-[0.9] tracking-tighter text-taste-text mb-10"
+        >
+          Build.<br />
+          Automate.<br />
+          Grow.
+        </motion.h1>
 
-          {/* Supporting text */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: 'easeOut' }}
-            className="text-lg md:text-xl text-ai-muted leading-relaxed mb-12 max-w-xl"
-          >
-            AI-VARSH builds intelligent digital solutions that help businesses automate, create and grow.
-          </motion.p>
+        {/* Supporting text */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          className="text-lg md:text-xl text-taste-muted leading-relaxed mb-16 max-w-2xl font-light"
+        >
+          Intelligent digital solutions designed for real business impact.
+        </motion.p>
 
-          {/* CTAs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.45, ease: 'easeOut' }}
-            className="flex flex-col sm:flex-row items-start sm:items-center gap-4"
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col sm:flex-row items-center gap-6"
+        >
+          <a
+            href="#contact"
+            onClick={scrollTo('#contact')}
+            className="bg-taste-text text-taste-bg px-10 py-4 text-sm font-medium hover:bg-taste-muted transition-colors duration-300 rounded-full"
           >
-            <a
-              href="#contact"
-              onClick={scrollTo('#contact')}
-              className="bg-ai-saffron text-ai-midnight px-8 py-4 font-bold text-sm tracking-wide hover:bg-ai-saffron/90 transition-all duration-300 flex items-center gap-3 group rounded-full"
-            >
-              LET'S TALK
-              <span className="w-1.5 h-1.5 rounded-full bg-ai-midnight/40 group-hover:scale-150 transition-transform" />
-            </a>
-            <a
-              href="#services"
-              onClick={scrollTo('#services')}
-              className="border border-ai-ivory/20 text-ai-ivory px-8 py-4 font-bold text-sm tracking-wide hover:border-ai-saffron/40 hover:text-ai-saffron transition-all duration-300 rounded-full"
-            >
-              EXPLORE SOLUTIONS
-            </a>
-          </motion.div>
-        </div>
+            Start a Conversation
+          </a>
+          <a
+            href="#services"
+            onClick={scrollTo('#services')}
+            className="text-taste-muted hover:text-taste-text text-sm font-medium transition-colors duration-300 underline underline-offset-4"
+          >
+            Explore Solutions
+          </a>
+        </motion.div>
       </div>
     </section>
   );

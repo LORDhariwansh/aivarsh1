@@ -18,10 +18,10 @@ import { ErrorBoundary } from './ErrorBoundary';
 function App() {
   return (
     <ErrorBoundary>
-      <div className="relative w-full text-ai-ivory bg-ai-midnight">
+      <div className="relative w-full text-taste-text bg-taste-bg selection:bg-taste-text selection:text-taste-bg font-sans">
         <Navbar />
 
-        <main className="relative w-full z-0 flex flex-col">
+        <main className="relative w-full z-0 flex flex-col selection:bg-taste-text selection:text-taste-bg">
           <Hero />
           <TrustSection />
           <ServicesSection />

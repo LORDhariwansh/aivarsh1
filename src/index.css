@@ -7,28 +7,17 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
   
   body {
-    @apply bg-ai-midnight text-ai-ivory font-sans;
+    @apply bg-taste-bg text-taste-text font-sans selection:bg-taste-text selection:text-taste-bg;
   }
 
-  ::selection {
-    @apply bg-ai-saffron/30 text-ai-ivory;
-  }
-
-  /* Custom scrollbar — dark premium */
+  /* Invisible scrollbar for extreme minimalism */
   ::-webkit-scrollbar {
-    width: 5px;
-  }
-  ::-webkit-scrollbar-track {
-    @apply bg-ai-midnight;
-  }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-ai-surface rounded-full;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    @apply bg-ai-saffron/60;
+    width: 0px;
+    background: transparent;
   }
 }
 
@@ -36,16 +25,8 @@
   .text-balance {
     text-wrap: balance;
   }
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
 }
 
-/* Accessibility */
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -59,5 +40,5 @@
 }
 
 :focus-visible {
-  @apply outline-none ring-2 ring-ai-saffron/60 ring-offset-2 ring-offset-ai-midnight;
+  @apply outline-none ring-1 ring-taste-text ring-offset-2 ring-offset-taste-bg;
 }

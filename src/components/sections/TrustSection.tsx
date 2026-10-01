@@ -4,22 +4,15 @@ import { AnimatedSection } from '../ui/AnimatedSection';
 
 export const TrustSection = () => {
   return (
-    <section className="py-12 md:py-16 bg-ai-deep border-y border-ai-ivory/5">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <AnimatedSection className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {SITE_CONTENT.trust.principles.map((principle, index) => (
-            <div key={principle.title} className="flex items-start gap-4 group">
-              <div className="w-px h-12 bg-ai-saffron/30 shrink-0 group-hover:bg-ai-saffron transition-colors" />
-              <div>
-                <h3 className="text-base font-bold text-ai-ivory mb-1 tracking-tight">
-                  {principle.title}
-                </h3>
-                <p className="text-sm text-ai-muted leading-relaxed">
-                  {principle.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+    <section className="py-24 md:py-32 bg-taste-surface border-t border-taste-border">
+      <div className="max-w-7xl mx-auto px-6 md:px-12 text-center">
+        <AnimatedSection className="max-w-3xl mx-auto">
+          <h2 className="text-2xl md:text-3xl lg:text-4xl font-display font-medium tracking-tight text-taste-text leading-tight mb-6">
+            We start with the business, not the technology.
+          </h2>
+          <p className="text-taste-muted text-base font-light">
+            Every business has different challenges. We understand how your business works and build what actually makes sense.
+          </p>
         </AnimatedSection>
       </div>
     </section>
