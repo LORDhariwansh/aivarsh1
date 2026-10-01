@@ -1,59 +1,49 @@
 import React from 'react';
 import { SERVICES } from '../../data/services';
-import { AnimatedSection } from '../ui/AnimatedSection';
-
-// We have 8 services. Let's create an asymmetrical layout pattern: 
-// Col spans: 2, 1, 1, 2, 1, 1, 2...
-// Or we can just use varied gradients to break the monotony.
+import { HorizontalPan } from '../ui/HorizontalPan';
 
 export const ServicesSection = () => {
   return (
-    <section id="services" className="py-32 md:py-48 bg-taste-bg border-t border-taste-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <AnimatedSection className="mb-20 md:mb-32">
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-display font-medium tracking-tighter text-taste-text max-w-3xl leading-[1.05]">
-            Technology and design, aligned.
-          </h2>
-        </AnimatedSection>
+    <section id="services" className="bg-taste-bg border-t border-taste-border relative">
+      <div className="absolute top-12 left-6 md:left-12 z-10">
+        <h2 className="text-[10px] tracking-[0.2em] uppercase font-mono text-taste-muted">
+          Services Portfolio
+        </h2>
+      </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-px bg-taste-border bg-opacity-50 border border-taste-border">
+      <HorizontalPan>
+        <div className="flex gap-0 h-full py-32 px-6 md:px-12 items-center">
           {SERVICES.map((service, index) => {
-            // Apply bento background diversity rule
-            const isFeatured = index === 0 || index === 4;
-            const hasSubtleGradient = index === 3 || index === 7;
+            const hasSubtleGradient = index % 2 === 1;
             
             return (
               <div 
                 key={service.id} 
-                className={`
-                  p-10 md:p-12 group transition-all duration-500 relative overflow-hidden
-                  ${isFeatured ? 'lg:col-span-2 bg-taste-surface' : 'bg-taste-bg hover:bg-taste-surface'}
-                `}
+                className="w-[85vw] md:w-[60vw] lg:w-[40vw] h-[60vh] shrink-0 border border-taste-border bg-taste-surface p-10 md:p-16 flex flex-col justify-between group relative overflow-hidden"
               >
-                {/* Visual diversity: subtle gradient or noise on specific cells */}
                 {hasSubtleGradient && (
-                  <div className="absolute inset-0 bg-gradient-to-br from-taste-accent/5 to-transparent pointer-events-none opacity-50 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-taste-accent/10 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
                 )}
                 
-                <div className="relative z-10 flex flex-col h-full justify-between">
-                  <span className="text-[10px] font-mono text-taste-muted/50 mb-12 block group-hover:text-taste-muted transition-colors">
-                    {String(index + 1).padStart(2, '0')}
-                  </span>
-                  
-                  <div>
-                    <h3 className="text-xl md:text-2xl font-medium text-taste-text mb-4 tracking-tight">
-                      {service.title}
-                    </h3>
-                    <p className="text-sm text-taste-muted leading-relaxed font-light">
-                      {service.description}
-                    </p>
-                  </div>
+                <span className="text-[10px] font-mono text-taste-muted mb-12 block relative z-10">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+                
+                <div className="relative z-10">
+                  <h3 className="text-3xl md:text-5xl font-display font-medium text-taste-text mb-6 tracking-tight leading-none group-hover:text-taste-accent transition-colors duration-500">
+                    {service.title}
+                  </h3>
+                  <p className="text-base md:text-lg text-taste-muted leading-relaxed font-light max-w-sm">
+                    {service.description}
+                  </p>
                 </div>
               </div>
             );
           })}
+          
+          <div className="w-[10vw] shrink-0" /> {/* End padding spacer */}
         </div>
-      </div>
+      </HorizontalPan>
     </section>
   );
 };

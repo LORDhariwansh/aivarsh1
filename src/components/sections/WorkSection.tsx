@@ -1,34 +1,25 @@
 import React from 'react';
-import { AnimatedSection } from '../ui/AnimatedSection';
+import { StickyStack } from '../ui/StickyStack';
 
-const creativeWords = ['Web', 'Design', 'Motion', 'Growth'];
+const creativeWords = ['Web.', 'Design.', 'Motion.', 'Growth.'];
 
 export const WorkSection = () => {
-  return (
-    <section id="work" className="py-32 md:py-48 bg-taste-bg border-t border-taste-border">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-start">
-          <div className="lg:col-span-4 sticky top-32">
-            <AnimatedSection>
-              <h2 className="text-sm font-medium tracking-widest uppercase text-taste-muted">
-                Creative Output
-              </h2>
-            </AnimatedSection>
-          </div>
-
-          <div className="lg:col-span-8 flex flex-col">
-            {creativeWords.map((word, i) => (
-              <AnimatedSection key={word} delay={i * 100}>
-                <div className="group border-b border-taste-border py-12 hover:px-8 transition-all duration-500 cursor-default">
-                  <span className="text-6xl md:text-8xl lg:text-9xl font-display font-medium tracking-tighter text-taste-muted/10 group-hover:text-taste-text transition-colors duration-500">
-                    {word}.
-                  </span>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
+  const cards = creativeWords.map((word, i) => (
+    <div key={word} className="w-full max-w-7xl mx-auto px-6 md:px-12 h-full flex flex-col justify-center">
+      <div className="flex justify-between items-end border-b border-taste-border pb-8">
+        <span className="text-[10px] tracking-widest uppercase font-mono text-taste-muted hidden md:block">
+          0{i + 1} / Creative Services
+        </span>
+        <h2 className="text-[15vw] md:text-[12vw] leading-none font-display font-medium tracking-tighter text-taste-text m-0">
+          {word}
+        </h2>
       </div>
+    </div>
+  ));
+
+  return (
+    <section id="work" className="bg-taste-bg">
+      <StickyStack cards={cards} />
     </section>
   );
 };
