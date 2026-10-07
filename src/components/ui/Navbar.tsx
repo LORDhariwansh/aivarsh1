@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const NAV_LINKS = [
   { label: 'Work', href: '#services' },
@@ -11,6 +12,8 @@ const NAV_LINKS = [
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 10);
@@ -25,31 +28,52 @@ export const Navbar = () => {
 
   const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileOpen(false);
-  }, []);
+
+    if (location.pathname !== '/') {
+      navigate('/' + (href !== '#hero' ? href : ''));
+      setTimeout(() => {
+        if (href === '#hero') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    } else {
+      if (href === '#hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [location.pathname, navigate]);
 
   return (
     <>
       <nav
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+          isScrolled || location.pathname !== '/'
             ? 'bg-black/90 backdrop-blur-md border-b border-zinc-800'
             : 'bg-transparent border-b border-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a
-            href="#"
-            onClick={(e) => handleNavClick(e, '#hero')}
+          <Link
+            to="/"
+            onClick={(e) => {
+              if (location.pathname === '/') {
+                e.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
             className="flex items-center gap-3 group shrink-0"
           >
             <img src="/logo.png" alt="AI-VARSH" className="w-7 h-7 object-contain" />
             <span className="font-display font-semibold text-sm tracking-tight text-zinc-50 group-hover:text-zinc-300 transition-colors duration-200">
               AI-VARSH
             </span>
-          </a>
+          </Link>
 
           {/* Desktop nav links */}
           <div className="hidden lg:flex items-center gap-10">
