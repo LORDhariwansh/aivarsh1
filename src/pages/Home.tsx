@@ -1,31 +1,25 @@
 import React from 'react';
 import { Hero } from '../components/sections/Hero';
-import { TrustSection } from '../components/sections/TrustSection';
+import { AboutSection } from '../components/sections/AboutSection';
 import { ServicesSection } from '../components/sections/ServicesSection';
-import { SolutionsSection } from '../components/sections/SolutionsSection';
-import { InteractiveNeedsSection } from '../components/sections/InteractiveNeedsSection';
-import { StorySection } from '../components/sections/StorySection';
-import { WebAppSection } from '../components/sections/WebAppSection';
 import { WorkSection } from '../components/sections/WorkSection';
 import { ProcessSection } from '../components/sections/ProcessSection';
-import { AboutSection } from '../components/sections/AboutSection';
-import { FaqSection } from '../components/sections/FaqSection';
+import { WhySection } from '../components/sections/WhySection';
+import { WebAppSection } from '../components/sections/WebAppSection';
+import { TrustSection } from '../components/sections/TrustSection';
 import { FinalSection } from '../components/sections/FinalSection';
 
 export const Home = () => {
   return (
-    <main className="relative w-full z-0 flex flex-col">
+    <main className="relative w-full z-0 flex flex-col bg-ivory text-charcoal">
       <Hero />
-      <TrustSection />
+      <AboutSection />
       <ServicesSection />
-      <SolutionsSection />
-      <InteractiveNeedsSection />
       <WorkSection />
       <ProcessSection />
-      <StorySection />
+      <WhySection />
       <WebAppSection />
-      <AboutSection />
-      <FaqSection />
+      <TrustSection />
       <FinalSection />
     </main>
   );

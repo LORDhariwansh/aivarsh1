@@ -1,17 +1,41 @@
-import React from 'react';
-import { AnimatedSection } from '../ui/AnimatedSection';
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
 
 export const TrustSection = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      const el = containerRef.current;
+      if (el) {
+        gsap.fromTo(el.querySelector('.trust-content'),
+          { opacity: 0, scale: 0.95 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 1,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 80%",
+            }
+          }
+        );
+      }
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="py-32 md:py-48 bg-black border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <AnimatedSection>
-          <p className="text-[clamp(1.5rem,4vw,4rem)] font-display font-light leading-[1.15] tracking-tight text-zinc-300 max-w-4xl">
-            We start with the business,{' '}
-            <span className="text-zinc-600">not the technology.</span>{' '}
-            We understand how your business works and build what actually makes sense.
-          </p>
-        </AnimatedSection>
+    <section className="py-32 md:py-40 bg-ivory-dark border-y border-border" ref={containerRef}>
+      <div className="max-w-5xl mx-auto px-6 md:px-12 text-center trust-content">
+        <p className="text-sm font-mono text-saffron uppercase tracking-widest mb-8">
+          The standard
+        </p>
+        <h2 className="text-[clamp(2rem,5vw,4rem)] font-display font-medium tracking-tight text-charcoal leading-[1.1] text-balance mx-auto">
+          Built for ambitious teams that want to move fast and scale without friction.
+        </h2>
       </div>
     </section>
   );

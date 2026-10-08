@@ -1,79 +1,80 @@
-import React from 'react';
-import { AnimatedSection } from '../ui/AnimatedSection';
-import { Compose, type ComposeMention, type ComposeCommand } from '../ui/compose';
-
-const MENTIONS: ComposeMention[] = [
-  { id: 'team', label: 'ai-varsh', sublabel: 'Our core team' },
-  { id: 'hariwansh', label: 'hariwansh', sublabel: 'Founder' },
-];
-
-const iconProps = {
-  viewBox: '0 0 24 24', fill: 'none',
-  stroke: 'currentColor', strokeWidth: 1.6,
-  strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const,
-};
-
-const COMMANDS: ComposeCommand[] = [
-  {
-    id: 'web',
-    label: 'website',
-    hint: 'I need a new website',
-    icon: <svg {...iconProps}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>,
-  },
-  {
-    id: 'ai',
-    label: 'automate',
-    hint: 'I want AI automation',
-    icon: <svg {...iconProps}><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>,
-  },
-  {
-    id: 'design',
-    label: 'design',
-    hint: 'I need branding / graphics',
-    icon: <svg {...iconProps}><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>,
-  },
-  {
-    id: 'seo',
-    label: 'growth',
-    hint: 'SEO and digital visibility',
-    icon: <svg {...iconProps}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>,
-  },
-];
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
 
 export const FinalSection = () => {
-  return (
-    <section id="contact" className="py-32 md:py-48 bg-black border-t border-zinc-800">
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
-          <div>
-            <AnimatedSection>
-              <h2 className="text-5xl md:text-7xl lg:text-[7rem] font-display font-medium tracking-tighter text-zinc-50 leading-[0.9] mb-12">
-                Ready<br />to build.
-              </h2>
-              <p className="text-base text-zinc-500 font-light mb-12 max-w-xs leading-relaxed">
-                Tell us what you're building or trying to solve. We start with a conversation, not a contract.
-              </p>
-              <div className="space-y-2">
-                <p className="text-[10px] font-mono tracking-widest uppercase text-zinc-700 mb-4">Direct</p>
-                <a href="mailto:contact@ai-varsh.com" className="block text-sm text-zinc-400 hover:text-zinc-50 transition-colors">contact@ai-varsh.com</a>
-                <a href="https://wa.me/917804877448" className="block text-sm text-zinc-400 hover:text-zinc-50 transition-colors">+91 78048 77448</a>
-                <a href="https://www.instagram.com/ai.varsh/" className="block text-sm text-zinc-400 hover:text-zinc-50 transition-colors">@ai.varsh</a>
-              </div>
-            </AnimatedSection>
-          </div>
+  const containerRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
-          <AnimatedSection delay={150} className="w-full">
-            <Compose
-              mentions={MENTIONS}
-              commands={COMMANDS}
-              maxLength={600}
-              placeholder="Describe your project…  press @ to tag us, / for quick topics"
-              submitLabel="Send"
-              onSubmit={(v) => console.log('Lead submitted:', v)}
-              onCommand={(c) => console.log('Command:', c.label)}
-              aria-label="Project inquiry"
-            />
-          </AnimatedSection>
+  useEffect(() => {
+    const ctx = gsap.context(() => {
+      // Background subtle transition
+      gsap.fromTo(bgRef.current,
+        { backgroundColor: '#F7F4EE' }, // ivory
+        {
+          backgroundColor: '#EDE8DF', // ivory-dark
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          }
+        }
+      );
+
+      // Elements reveal
+      const elements = gsap.utils.toArray<HTMLElement>('.cta-reveal');
+      gsap.fromTo(elements,
+        { opacity: 0, y: 40 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 1,
+          stagger: 0.15,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: containerRef.current,
+            start: "top 75%",
+          }
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section id="contact" className="relative py-40 md:py-64 border-t border-border overflow-hidden" ref={containerRef}>
+      <div ref={bgRef} className="absolute inset-0 z-0" />
+      
+      {/* Decorative element */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white rounded-full blur-3xl opacity-50 pointer-events-none z-0" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
+        <h2 className="cta-reveal text-[clamp(3.5rem,8vw,7rem)] font-display font-medium tracking-tight leading-[1] text-charcoal mb-8">
+          Have an idea<br />
+          worth building?
+        </h2>
+        
+        <p className="cta-reveal text-xl md:text-2xl text-muted font-light max-w-xl mb-16">
+          Let's turn it into something real. We start with a conversation, not a contract.
+        </p>
+
+        <div className="cta-reveal flex flex-col sm:flex-row items-center gap-6">
+          <a href="mailto:contact@ai-varsh.com" className="w-full sm:w-auto px-8 py-4 bg-saffron text-white rounded-full font-medium hover:bg-saffron-dark hover:scale-105 transition-all duration-300">
+            Start a Conversation
+          </a>
+          <a href="#work" className="w-full sm:w-auto px-8 py-4 bg-white border border-border text-charcoal rounded-full font-medium hover:border-charcoal hover:scale-105 transition-all duration-300">
+            Explore Our Work
+          </a>
+        </div>
+        
+        <div className="cta-reveal mt-20 flex flex-col items-center">
+          <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">Or reach us directly</p>
+          <div className="flex items-center gap-6">
+            <a href="https://wa.me/917804877448" className="text-sm font-medium text-charcoal hover:text-saffron transition-colors">+91 78048 77448</a>
+            <span className="w-1 h-1 rounded-full bg-border" />
+            <a href="mailto:contact@ai-varsh.com" className="text-sm font-medium text-charcoal hover:text-saffron transition-colors">contact@ai-varsh.com</a>
+          </div>
         </div>
       </div>
     </section>

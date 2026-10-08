@@ -7,21 +7,27 @@ export default {
   theme: {
     extend: {
       colors: {
-        'taste-bg': '#000000',
-        'taste-surface': '#09090B', // zinc-950
-        'taste-border': '#27272A', // zinc-800
-        'taste-text': '#FAFAFA', // zinc-50
-        'taste-muted': '#A1A1AA', // zinc-400
-        'taste-accent': '#E85D04',
+        // Premium warm palette
+        'ivory': '#F7F4EE',
+        'ivory-dark': '#EDE8DF',
+        'charcoal': '#171717',
+        'charcoal-light': '#2A2A2A',
+        'muted': '#66615A',
+        'muted-light': '#8A857D',
+        'saffron': '#C96F45',
+        'saffron-dark': '#B5603B',
+        'border': '#E0DBD2',
+        'border-light': '#EDEAE4',
       },
       fontFamily: {
-        sans: ['Outfit', 'sans-serif'],
-        display: ['Outfit', 'sans-serif'],
+        sans: ['Satoshi', 'system-ui', 'sans-serif'],
+        display: ['Satoshi', 'system-ui', 'sans-serif'],
         mono: ['JetBrains Mono', 'monospace'],
       },
       animation: {
         'fade-in': 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
         'slide-up': 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+        'grain': 'grain 8s steps(10) infinite',
       },
       keyframes: {
         fadeIn: {
@@ -32,9 +38,18 @@ export default {
           '0%': { opacity: '0', transform: 'translateY(16px)' },
           '100%': { opacity: '1', transform: 'translateY(0)' },
         },
-      },
-      boxShadow: {
-        'taste-glow': '0 0 40px -10px rgba(255, 255, 255, 0.05)',
+        grain: {
+          '0%, 100%': { transform: 'translate(0, 0)' },
+          '10%': { transform: 'translate(-5%, -10%)' },
+          '20%': { transform: 'translate(-15%, 5%)' },
+          '30%': { transform: 'translate(7%, -25%)' },
+          '40%': { transform: 'translate(-5%, 25%)' },
+          '50%': { transform: 'translate(-15%, 10%)' },
+          '60%': { transform: 'translate(15%, 0%)' },
+          '70%': { transform: 'translate(0%, 15%)' },
+          '80%': { transform: 'translate(3%, 35%)' },
+          '90%': { transform: 'translate(-10%, 10%)' },
+        },
       },
     },
   },
