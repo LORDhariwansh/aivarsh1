@@ -1,80 +1,111 @@
-import React, { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ContactForm } from '../ui/ContactForm';
 
 export const FinalSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const bgRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Background subtle transition
-      gsap.fromTo(bgRef.current,
-        { backgroundColor: '#F7F4EE' }, // ivory
-        {
-          backgroundColor: '#EDE8DF', // ivory-dark
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
-          }
-        }
-      );
-
-      // Elements reveal
-      const elements = gsap.utils.toArray<HTMLElement>('.cta-reveal');
-      gsap.fromTo(elements,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 1,
-          stagger: 0.15,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: containerRef.current,
-            start: "top 75%",
-          }
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
-
   return (
-    <section id="contact" className="relative py-40 md:py-64 border-t border-border overflow-hidden" ref={containerRef}>
-      <div ref={bgRef} className="absolute inset-0 z-0" />
-      
-      {/* Decorative element */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-white rounded-full blur-3xl opacity-50 pointer-events-none z-0" />
+    <section id="contact" className="relative py-28 md:py-40 bg-surface border-t border-border overflow-hidden">
+      {/* Ambient background glow */}
+      <div
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] pointer-events-none rounded-full"
+        style={{
+          background: 'radial-gradient(circle, rgba(139, 92, 246, 0.15) 0%, rgba(109, 40, 217, 0.04) 50%, transparent 70%)',
+        }}
+      />
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center text-center">
-        <h2 className="cta-reveal text-[clamp(3.5rem,8vw,7rem)] font-display font-medium tracking-tight leading-[1] text-charcoal mb-8">
-          Have an idea<br />
-          worth building?
-        </h2>
-        
-        <p className="cta-reveal text-xl md:text-2xl text-muted font-light max-w-xl mb-16">
-          Let's turn it into something real. We start with a conversation, not a contract.
-        </p>
+      <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.35fr] gap-16 lg:gap-24 items-start">
+          
+          {/* Left: Headline & direct info */}
+          <div className="flex flex-col">
+            <motion.span
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const }}
+              className="text-xs font-mono tracking-widest uppercase text-accent mb-4 block font-medium"
+            >
+              Start a Conversation
+            </motion.span>
 
-        <div className="cta-reveal flex flex-col sm:flex-row items-center gap-6">
-          <a href="mailto:contact@ai-varsh.com" className="w-full sm:w-auto px-8 py-4 bg-saffron text-white rounded-full font-medium hover:bg-saffron-dark hover:scale-105 transition-all duration-300">
-            Start a Conversation
-          </a>
-          <a href="#work" className="w-full sm:w-auto px-8 py-4 bg-white border border-border text-charcoal rounded-full font-medium hover:border-charcoal hover:scale-105 transition-all duration-300">
-            Explore Our Work
-          </a>
-        </div>
-        
-        <div className="cta-reveal mt-20 flex flex-col items-center">
-          <p className="text-xs font-mono uppercase tracking-widest text-muted mb-4">Or reach us directly</p>
-          <div className="flex items-center gap-6">
-            <a href="https://wa.me/917804877448" className="text-sm font-medium text-charcoal hover:text-saffron transition-colors">+91 78048 77448</a>
-            <span className="w-1 h-1 rounded-full bg-border" />
-            <a href="mailto:contact@ai-varsh.com" className="text-sm font-medium text-charcoal hover:text-saffron transition-colors">contact@ai-varsh.com</a>
+            <motion.h2
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.75, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
+              className="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight text-foreground leading-[1.08] mb-6"
+            >
+              Have an idea <br />
+              <span className="text-accent underline decoration-accent/30 underline-offset-8">worth building?</span>
+            </motion.h2>
+
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const }}
+              className="text-base md:text-lg text-muted font-light leading-relaxed mb-10 max-w-md"
+            >
+              Tell us what you are trying to achieve. Let's find the right way forward. We start with a conversation, not a contract.
+            </motion.p>
+
+            {/* Direct contact channels */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-10%' }}
+              transition={{ duration: 0.75, delay: 0.3, ease: [0.16, 1, 0.3, 1] as const }}
+              className="flex flex-col gap-6 pt-6 border-t border-border"
+            >
+              <div>
+                <p className="text-xs font-mono tracking-widest uppercase text-muted mb-1.5 font-medium">Direct Email</p>
+                <a
+                  href="mailto:hello@aivarsh.in"
+                  className="text-base font-semibold text-foreground hover:text-accent transition-colors"
+                >
+                  hello@aivarsh.in
+                </a>
+              </div>
+
+              <div>
+                <p className="text-xs font-mono tracking-widest uppercase text-muted mb-1.5 font-medium">WhatsApp / Phone</p>
+                <a
+                  href="https://wa.me/917804877448"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 text-base font-semibold text-foreground hover:text-accent transition-colors"
+                >
+                  <span>+91 78048 77448</span>
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                </a>
+              </div>
+
+              <div>
+                <p className="text-xs font-mono tracking-widest uppercase text-muted mb-1.5 font-medium">Location</p>
+                <p className="text-sm text-muted font-light">
+                  Raipur, Chhattisgarh — Building digital products for ambitious enterprises nationwide.
+                </p>
+              </div>
+            </motion.div>
           </div>
+
+          {/* Right: Contact Form Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 22 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-10%' }}
+            transition={{ duration: 0.75, delay: 0.2, ease: [0.16, 1, 0.3, 1] as const }}
+            className="bg-background p-8 md:p-10 rounded-2xl border border-border shadow-md shadow-black/5"
+          >
+            <h3 className="text-xl font-display font-semibold text-foreground mb-1">
+              Project Details
+            </h3>
+            <p className="text-xs text-muted font-light mb-8">
+              Fill in your details and requirements. We typically respond within 24 hours.
+            </p>
+            <ContactForm />
+          </motion.div>
+
         </div>
       </div>
     </section>

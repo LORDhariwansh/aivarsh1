@@ -8,17 +8,17 @@ export const PrivacyPolicy = () => {
   }, []);
 
   return (
-    <main className="relative w-full z-0 flex flex-col bg-[#FAFAFA] text-zinc-900 min-h-screen pt-32 pb-24">
+    <main className="relative w-full z-0 flex flex-col bg-background text-foreground min-h-screen pt-32 pb-24">
       <div className="max-w-4xl mx-auto px-6 md:px-12 w-full">
         
         {/* Header */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 border-b border-zinc-200 pb-12"
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] as const }}
+          className="mb-16 border-b border-border pb-12"
         >
-          <Link to="/" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-zinc-500 hover:text-[#E85D04] transition-colors mb-12">
+          <Link to="/" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-[0.15em] text-muted hover:text-accent transition-colors mb-12">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
@@ -34,7 +34,7 @@ export const PrivacyPolicy = () => {
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] as const }}
           className="prose prose-zinc max-w-none prose-headings:font-display prose-headings:font-medium prose-headings:tracking-tight prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-p:text-zinc-600 prose-p:leading-relaxed prose-p:font-light prose-li:text-zinc-600 prose-li:font-light"
         >
           <h2>1. Introduction</h2>

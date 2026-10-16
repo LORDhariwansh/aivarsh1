@@ -1,94 +1,161 @@
-import React, { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { useReducedMotion } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const steps = [
-  { num: '01', title: 'Discover', desc: 'We learn about your business, goals, and the problem you are actually trying to solve.' },
-  { num: '02', title: 'Design', desc: 'We engineer the architecture, wireframes, and visual concepts for the solution.' },
-  { num: '03', title: 'Build', desc: 'We develop, test, and refine the technology until it works perfectly.' },
-  { num: '04', title: 'Launch', desc: 'We deploy the solution and ensure a smooth transition for your team.' },
-  { num: '05', title: 'Grow', desc: 'We maintain, optimize, and scale the system as your business evolves.' },
+  {
+    num: '01',
+    title: 'Discover',
+    tagline: 'Understand the business reality.',
+    desc: 'We examine your existing processes, team workflows, software stack, and operational bottlenecks. We identify the real opportunity before prescribing any technology.',
+    deliverable: 'Scope Definition & Technical Blueprint',
+  },
+  {
+    num: '02',
+    title: 'Design',
+    tagline: 'Architect the right solution.',
+    desc: 'We map out database schemas, user experience flows, computer vision inference logic, and API choreography. Clean, intuitive, and built without legacy debt.',
+    deliverable: 'Interactive Wireframes & Architecture Plan',
+  },
+  {
+    num: '03',
+    title: 'Build',
+    tagline: 'Engineer with precision.',
+    desc: 'We develop custom applications, train or fine-tune vision models, connect automated pipelines, and craft high-performance frontend interfaces with strict typing and unit tests.',
+    deliverable: 'Production Software & Automated Workflows',
+  },
+  {
+    num: '04',
+    title: 'Validate',
+    tagline: 'Verify in real conditions.',
+    desc: 'We rigorously stress-test the deployment in real operational environments: evaluating video stream latencies, edge-case handling, and user feedback before sign-off.',
+    deliverable: 'QA Audit Report & Acceptance Sign-Off',
+  },
+  {
+    num: '05',
+    title: 'Deploy & Improve',
+    tagline: 'Launch and compound growth.',
+    desc: 'We assist with seamless rollout, staff onboarding, monitoring infrastructure, and continuous iterative optimizations to ensure your digital investment scales.',
+    deliverable: 'Live Production Launch & Ongoing Support',
+  },
 ];
 
 export const ProcessSection = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const trackRef = useRef<HTMLDivElement>(null);
-  const reduce = useReducedMotion();
+  const [activeStep, setActiveStep] = useState(0);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    if (reduce) return;
-    
-    const ctx = gsap.context(() => {
-      const stepEls = gsap.utils.toArray<HTMLElement>('.process-step');
-      
-      // Pin the section and scrub through the steps
-      gsap.to(trackRef.current, {
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top",
-          end: `+=${stepEls.length * 100}%`,
-          pin: true,
-          scrub: true,
-          onUpdate: (self) => {
-            const progress = self.progress;
-            const activeIdx = Math.min(
-              Math.floor(progress * stepEls.length),
-              stepEls.length - 1
-            );
-            
-            stepEls.forEach((el, i) => {
-              if (i === activeIdx) {
-                gsap.to(el, { opacity: 1, scale: 1, duration: 0.3 });
-                el.classList.add('active-step');
-              } else {
-                gsap.to(el, { opacity: 0.2, scale: 0.95, duration: 0.3 });
-                el.classList.remove('active-step');
-              }
-            });
-          }
-        }
-      });
-      
-    }, containerRef);
+    const observers: IntersectionObserver[] = [];
 
-    return () => ctx.revert();
-  }, [reduce]);
+    stepRefs.current.forEach((el, idx) => {
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setActiveStep(idx);
+            }
+          });
+        },
+        { rootMargin: '-35% 0px -35% 0px', threshold: 0 }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, []);
 
   return (
-    <section id="process" className="bg-charcoal text-ivory relative" ref={containerRef}>
-      <div className="h-[100dvh] flex flex-col md:flex-row" ref={trackRef}>
-        
-        {/* Left side title */}
-        <div className="w-full md:w-1/3 p-6 md:p-12 lg:p-24 flex flex-col justify-center border-b md:border-b-0 md:border-r border-ivory/10">
-          <p className="text-sm font-mono text-saffron uppercase tracking-widest mb-4">How We Work</p>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium tracking-tight">
-            Our Process
-          </h2>
-        </div>
+    <section id="process" className="bg-surface py-32 md:py-48 border-t border-border relative">
+      <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.5fr] gap-12 lg:gap-20">
+          
+          {/* Left sticky panel */}
+          <div className="lg:pr-8">
+            <div className="lg:sticky lg:top-36">
+              <span className="text-xs font-mono tracking-widest uppercase text-accent mb-4 block font-medium">
+                Our Methodology
+              </span>
+              <h2 className="text-3xl md:text-5xl font-display font-bold tracking-tight text-foreground leading-[1.08] mb-6">
+                From your idea to a working solution.
+              </h2>
+              <p className="text-base text-muted font-light leading-relaxed mb-10 max-w-md">
+                No unnecessary complexity. No technology for technology's sake. Just a structured, transparent path to practical business outcomes.
+              </p>
 
-        {/* Right side steps */}
-        <div className="w-full md:w-2/3 h-full flex items-center justify-center relative px-6 py-12 md:p-24">
-          <div className="relative w-full max-w-2xl h-[400px] flex items-center">
-            {steps.map((step, i) => (
-              <div 
+              {/* Progress step indicators (Desktop) */}
+              <div className="hidden lg:flex flex-col gap-3.5 border-l border-border pl-6">
+                {steps.map((step, idx) => (
+                  <button
+                    key={step.num}
+                    onClick={() => {
+                      stepRefs.current[idx]?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }}
+                    className="flex items-center gap-4 group text-left cursor-pointer py-1"
+                  >
+                    <span
+                      className={`text-xs font-mono transition-all duration-300 font-medium ${
+                        activeStep === idx
+                          ? 'text-accent scale-105'
+                          : 'text-muted/60 group-hover:text-muted'
+                      }`}
+                    >
+                      {step.num}
+                    </span>
+                    <span
+                      className={`text-sm font-sans transition-colors duration-200 ${
+                        activeStep === idx
+                          ? 'text-foreground font-semibold'
+                          : 'text-muted group-hover:text-foreground'
+                      }`}
+                    >
+                      {step.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Right scrolling steps */}
+          <div className="flex flex-col gap-8 md:gap-10">
+            {steps.map((step, idx) => (
+              <motion.div
                 key={step.num}
-                className="process-step absolute top-1/2 left-0 w-full -translate-y-1/2 opacity-20 scale-95 origin-left"
-                style={{ opacity: i === 0 ? 1 : 0.2, transform: i === 0 ? 'scale(1) translateY(-50%)' : 'scale(0.95) translateY(-50%)' }}
+                ref={(el) => { stepRefs.current[idx] = el; }}
+                initial={{ opacity: 0, y: 24 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-10%' }}
+                transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] as const }}
+                className={`p-8 md:p-10 rounded-2xl border transition-all duration-400 ${
+                  activeStep === idx
+                    ? 'bg-background border-accent/50 shadow-md shadow-accent/5'
+                    : 'bg-background/40 border-border hover:bg-background/80'
+                }`}
               >
-                <div className="flex items-baseline gap-6 mb-6">
-                  <span className="text-2xl md:text-4xl font-mono text-saffron">{step.num} —</span>
-                  <h3 className="text-4xl md:text-5xl lg:text-6xl font-display font-medium">
-                    {step.title}
-                  </h3>
+                <div className="flex items-baseline justify-between gap-4 mb-4 pb-4 border-b border-border/70">
+                  <span className="text-2xl md:text-3xl font-mono text-accent font-semibold">
+                    {step.num}
+                  </span>
+                  <span className="text-xs font-mono text-muted/70 uppercase tracking-wider">
+                    {step.deliverable}
+                  </span>
                 </div>
-                <p className="text-lg md:text-2xl text-muted-light font-light max-w-lg leading-relaxed ml-[5.5rem] md:ml-[7.5rem]">
+
+                <h3 className="text-2xl md:text-3xl font-display font-semibold text-foreground mb-1">
+                  {step.title}
+                </h3>
+                <p className="text-sm font-sans font-medium text-accent-secondary mb-4">
+                  "{step.tagline}"
+                </p>
+                <p className="text-base text-muted font-light leading-relaxed max-w-xl">
                   {step.desc}
                 </p>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
 
+        </div>
       </div>
     </section>
   );

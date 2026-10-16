@@ -12,7 +12,7 @@ function App() {
     <ErrorBoundary>
       <Router>
         <SmoothScroll>
-          <div className="relative w-full bg-ivory text-charcoal font-sans grain">
+          <div className="relative w-full bg-background text-foreground font-sans grain min-h-screen">
             <Navbar />
             <Routes>
               <Route path="/" element={<Home />} />

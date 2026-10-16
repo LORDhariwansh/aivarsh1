@@ -4,9 +4,11 @@ import { Menu, X, ArrowUpRight } from 'lucide-react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
 
 const NAV_LINKS = [
-  { label: 'About', href: '#about' },
   { label: 'Services', href: '#services' },
-  { label: 'Work', href: '#work' },
+  { label: 'Solutions', href: '#explorer' },
+  { label: 'About', href: '#about' },
+  { label: 'Insights', href: '#work' },
+  { label: 'Contact', href: '#contact' },
 ];
 
 export const Navbar = () => {
@@ -16,49 +18,62 @@ export const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    const handleScroll = () => setIsScrolled(window.scrollY > 30);
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    return () => {
+      document.body.style.overflow = '';
+    };
   }, [isMobileOpen]);
 
-  const handleNavClick = useCallback((e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
-    setIsMobileOpen(false);
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileOpen(false);
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
-    if (location.pathname !== '/') {
-      navigate('/' + (href !== '#hero' ? href : ''));
-      setTimeout(() => {
+  const handleNavClick = useCallback(
+    (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+      e.preventDefault();
+      setIsMobileOpen(false);
+
+      if (location.pathname !== '/') {
+        navigate('/' + (href !== '#hero' ? href : ''));
+        setTimeout(() => {
+          if (href === '#hero') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          } else {
+            document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
         if (href === '#hero') {
           window.scrollTo({ top: 0, behavior: 'smooth' });
         } else {
           document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
         }
-      }, 100);
-    } else {
-      if (href === '#hero') {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
-        document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
       }
-    }
-  }, [location.pathname, navigate]);
+    },
+    [location.pathname, navigate]
+  );
 
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           isScrolled
-            ? 'py-4 bg-ivory/80 backdrop-blur-xl border-b border-charcoal/5 shadow-sm'
-            : 'py-6 bg-transparent border-b border-transparent'
+            ? 'py-3.5 bg-[#08080C]/80 backdrop-blur-xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+            : 'py-5 bg-transparent border-b border-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo */}
+          {/* Brand Logo & Wordmark */}
           <Link
             to="/"
             onClick={(e) => {
@@ -67,96 +82,109 @@ export const Navbar = () => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }
             }}
-            className="flex items-center gap-3 group shrink-0"
+            className="flex items-center gap-2.5 group shrink-0"
           >
-            <span className="font-display font-medium text-lg tracking-tight text-charcoal transition-colors duration-200">
-              AI VARSH
-            </span>
+            <div className="relative w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center bg-gradient-to-tr from-violet-600/30 to-white/10 border border-white/15 p-1 group-hover:border-violet-500/50 transition-colors">
+              <img
+                src="/logo.png"
+                alt="AI VARSH Logo"
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  (e.target as HTMLElement).style.display = 'none';
+                }}
+              />
+              <span className="font-extrabold text-sm text-white absolute">V</span>
+            </div>
+            <div className="flex flex-col">
+              <span className="font-sans font-bold text-base tracking-tight text-white group-hover:text-lavender transition-colors">
+                AI VARSH
+              </span>
+            </div>
           </Link>
 
-          {/* Desktop nav links */}
-          <div className="hidden lg:flex items-center gap-10">
+          {/* Desktop Navigation Links */}
+          <div className="hidden md:flex items-center gap-7 px-5 py-1.5 rounded-full bg-white/[0.03] border border-white/[0.06] backdrop-blur-md">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}
                 href={link.href}
                 onClick={(e) => handleNavClick(e, link.href)}
-                className="text-sm font-medium text-muted hover:text-charcoal transition-colors duration-200"
+                className="text-xs font-medium text-text-secondary hover:text-white transition-colors duration-200"
               >
                 {link.label}
               </a>
             ))}
-            <a
-              href="#contact"
-              onClick={(e) => handleNavClick(e, '#contact')}
-              className="text-sm font-medium text-muted hover:text-charcoal transition-colors duration-200"
-            >
-              Contact
-            </a>
           </div>
 
-          {/* Right: CTA + hamburger */}
-          <div className="flex items-center gap-4">
+          {/* Right Action CTAs */}
+          <div className="hidden sm:flex items-center gap-3">
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
-              className="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-ivory bg-charcoal px-6 py-2.5 rounded-full hover:bg-charcoal-light hover:scale-105 transition-all duration-300"
+              className="text-xs font-medium text-text-secondary hover:text-white px-4 py-2 rounded-full border border-white/15 hover:border-violet-400/40 hover:bg-white/[0.03] transition-all duration-200"
             >
               Let's Talk
             </a>
-            <button
-              className="lg:hidden text-charcoal hover:text-saffron transition-colors p-1"
-              onClick={() => setIsMobileOpen(!isMobileOpen)}
-              aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+            <a
+              href="#contact"
+              onClick={(e) => handleNavClick(e, '#contact')}
+              className="group inline-flex items-center gap-1.5 text-xs font-semibold text-white bg-gradient-to-r from-violet-600 via-indigo-600 to-purple-600 px-4 py-2 rounded-full shadow-violet-glow hover:brightness-110 hover:shadow-violet-glow-lg transition-all duration-200"
             >
-              {isMobileOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
-            </button>
+              <span>Get Started</span>
+              <ArrowUpRight size={13} className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
           </div>
+
+          {/* Mobile Menu Toggle Button */}
+          <button
+            className="md:hidden text-text-primary p-2 rounded-xl bg-white/[0.05] border border-white/10 hover:bg-white/10 transition-colors"
+            onClick={() => setIsMobileOpen(!isMobileOpen)}
+            aria-label={isMobileOpen ? 'Close menu' : 'Open menu'}
+          >
+            {isMobileOpen ? <X size={20} /> : <Menu size={20} />}
+          </button>
         </div>
       </nav>
 
-      {/* Mobile menu — AnimatePresence slide-down */}
+      {/* Mobile Drawer Menu */}
       <AnimatePresence>
         {isMobileOpen && (
           <motion.div
-            initial={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            animate={{ opacity: 1, clipPath: 'inset(0 0 0% 0)' }}
-            exit={{ opacity: 0, clipPath: 'inset(0 0 100% 0)' }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-0 z-40 bg-ivory flex flex-col px-8 pt-32 pb-12 overflow-hidden"
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-40 bg-[#08080C]/95 backdrop-blur-2xl pt-24 px-6 flex flex-col justify-between pb-10 md:hidden"
           >
-            {/* Nav links */}
-            <div className="flex flex-col w-full flex-1 gap-6">
-              {[...NAV_LINKS, { label: 'Contact', href: '#contact' }].map((link, i) => (
-                <motion.a
+            <div className="flex flex-col gap-4">
+              {NAV_LINKS.map((link) => (
+                <a
                   key={link.href}
                   href={link.href}
                   onClick={(e) => handleNavClick(e, link.href)}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 + 0.2, ease: [0.16, 1, 0.3, 1], duration: 0.5 }}
-                  className="text-4xl md:text-6xl leading-none font-display font-medium tracking-tight text-charcoal hover:text-saffron transition-colors duration-200"
+                  className="text-xl font-medium text-text-secondary hover:text-white py-2 border-b border-white/[0.06] transition-colors"
                 >
                   {link.label}
-                </motion.a>
+                </a>
               ))}
             </div>
 
-            {/* Bottom CTA */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-              className="mt-10 flex flex-col gap-6"
-            >
+            <div className="flex flex-col gap-3 mt-8">
               <a
                 href="#contact"
                 onClick={(e) => handleNavClick(e, '#contact')}
-                className="inline-flex items-center justify-center gap-2 text-base font-medium bg-charcoal text-ivory px-8 py-4 rounded-full hover:bg-charcoal-light transition-colors duration-200"
+                className="w-full text-center py-3 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 to-indigo-600 rounded-full shadow-violet-glow"
+              >
+                Get Started
+              </a>
+              <a
+                href="#contact"
+                onClick={(e) => handleNavClick(e, '#contact')}
+                className="w-full text-center py-3 text-sm font-medium text-text-secondary hover:text-white rounded-full border border-white/15"
               >
                 Let's Talk
               </a>
-            </motion.div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

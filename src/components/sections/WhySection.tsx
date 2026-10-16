@@ -1,13 +1,16 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useReducedMotion } from 'framer-motion';
 
+gsap.registerPlugin(ScrollTrigger);
+
 const points = [
-  "Human-centered",
-  "AI-powered",
-  "Business-focused",
-  "Design-driven",
-  "Built for growth"
+  'Human-centered design',
+  'AI-powered automation',
+  'Business-outcome focused',
+  'Engineering rigor & reliability',
+  'Built to evolve and scale',
 ];
 
 export const WhySection = () => {
@@ -17,40 +20,41 @@ export const WhySection = () => {
 
   useEffect(() => {
     if (reduce) return;
-    
+
     const ctx = gsap.context(() => {
-      // Split the words manually for animation
       if (wordsRef.current) {
         const spans = Array.from(wordsRef.current.children);
-        gsap.fromTo(spans,
-          { opacity: 0, y: 30 },
+        gsap.fromTo(
+          spans,
+          { opacity: 0, y: 24 },
           {
             opacity: 1,
             y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out",
+            duration: 0.7,
+            stagger: 0.08,
+            ease: 'power3.out',
             scrollTrigger: {
               trigger: containerRef.current,
-              start: "top 75%",
-            }
+              start: 'top 80%',
+            },
           }
         );
       }
-      
+
       const listItems = gsap.utils.toArray<HTMLElement>('.why-list-item');
-      gsap.fromTo(listItems,
-        { opacity: 0, x: -20 },
+      gsap.fromTo(
+        listItems,
+        { opacity: 0, x: -16 },
         {
           opacity: 1,
           x: 0,
-          duration: 0.8,
-          stagger: 0.1,
-          ease: "power3.out",
+          duration: 0.7,
+          stagger: 0.08,
+          ease: 'power3.out',
           scrollTrigger: {
             trigger: '.why-list-container',
-            start: "top 85%",
-          }
+            start: 'top 85%',
+          },
         }
       );
     }, containerRef);
@@ -59,25 +63,34 @@ export const WhySection = () => {
   }, [reduce]);
 
   return (
-    <section className="py-32 md:py-48 bg-ivory text-charcoal border-t border-border" ref={containerRef}>
+    <section className="py-32 md:py-48 bg-background border-t border-border" ref={containerRef}>
       <div className="max-w-7xl mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
-          
+
           <div>
-            <h2 className="text-[clamp(3rem,6vw,5rem)] font-display font-medium leading-[1.05] tracking-tight" ref={wordsRef}>
+            <span className="text-xs font-mono tracking-widest uppercase text-accent mb-4 block font-medium">
+              Why AI VARSH
+            </span>
+            <h2
+              className="text-[clamp(2.5rem,5vw,4.5rem)] font-display font-bold leading-[1.08] tracking-tight text-foreground"
+              ref={wordsRef}
+            >
               <span className="inline-block mr-3">Technology</span>
               <span className="inline-block mr-3">with</span>
               <span className="inline-block mr-3">a</span>
-              <span className="inline-block text-saffron">purpose.</span>
+              <span className="inline-block text-accent">purpose.</span>
             </h2>
+            <p className="mt-8 text-base md:text-lg text-muted font-light leading-relaxed max-w-md">
+              We eliminate technical vanity. Every line of code, automated workflow, and visual moment is shaped to move your actual business indicators.
+            </p>
           </div>
 
           <div className="why-list-container">
             <ul className="space-y-6 md:space-y-8">
               {points.map((point, idx) => (
                 <li key={idx} className="why-list-item flex items-center gap-6">
-                  <div className="w-12 h-px bg-saffron shrink-0" />
-                  <span className="text-2xl md:text-3xl font-display font-medium text-charcoal/80">
+                  <div className="w-10 h-[2px] bg-accent shrink-0" />
+                  <span className="text-xl md:text-2xl font-display font-semibold text-foreground/85 hover:text-accent transition-colors duration-200">
                     {point}
                   </span>
                 </li>
